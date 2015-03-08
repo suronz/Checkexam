@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet name="bootstrap.min.css" library="css" />
+	<h:outputStylesheet name="bootstrap.css.map" library="css" />
+	<h:outputStylesheet name="bootstrap.css" library="css" />
+	<h:outputStylesheet name="bootstrap-theme.css" library="css" />
+	<h:outputStylesheet name="bootstrap-theme.css.map" library="css" />
+	<h:outputStylesheet name="bootstrap-theme.min.css" library="css" />
+	<!-- <h:outputStylesheet name="style.css" library="css" /> -->
+	<h:outputScript name="countdown.js" library="js" />
+
+	<!-- shadow	: {
+											x : 0,			// x offset (in pixels)
+											y : 3,			// y offset (in pixels)
+											s : 4,			// spread
+											c : "#000000",	// color
+											a : 0.4			// alpha	// <- no comma on last item!
+										}
+						}, -->
+</h:head>
+<h:body>
+<div id="wrapper">
+			<div id="container-fluid">
+	<h:form>
+			<div class="col-md-12">
+				<div class="col-md-8">
+					<h4><h:outputText value="Exam name  - #{examBean.examPaperVO.examName}"></h:outputText></h4>
+					<h4><h:outputText value="Batch - #{examBean.examPaperVO.batchCd}"></h:outputText></h4>
+					<h4><h:outputText value="Paper - #{examBean.examPaperVO.paperNo}"></h:outputText></h4>
+					<h4><h:outputText value="Duration - #{examBean.examPaperVO.examDuration} min"></h:outputText></h4>
+					<br />
+				</div>
+				<div class="col-md-4">
+					<script type="text/javascript">
+						var myCountdown2 = new Countdown({
+							time : 300,
+							width : 150,
+							height : 80,
+							rangeHi : "minute",
+							padding : 1,
+							numbers : {
+								font : "Arial",
+								color : "#FFFFFF",
+								bkgd : "#365D8B",
+								fontSize : 200,
+								rounded : 0.15, // percentage of size 
+							},
+
+							labels : {
+								textScale : 0.8,
+								offset : 5
+							}
+
+						});
+					</script>
+				</div>
+			</div>
+			<div class="container" align="center">
+					<div>
+							<h2><h:outputLabel value="#{examBean.questionVO.question}" /></h2>
+					</div>
+					<div>
+						<h:selectOneRadio
+									value="#{examBean.examAns}" style="verticle-align:top;font-size:200%;">
+									<f:selectItem itemValue="Option 1"
+										itemLabel="#{examBean.questionVO.option1}" />
+									<f:selectItem itemValue="Option 2"
+										itemLabel="#{examBean.questionVO.option2}" />
+									<f:selectItem itemValue="Option 3"
+										itemLabel="#{examBean.questionVO.option3}" />
+									<f:selectItem itemValue="Option 4"
+										itemLabel="#{examBean.questionVO.option4}" />
+								</h:selectOneRadio>
+								<h:inputHidden id="quesIdHidden"
+									value="#{examBean.questionVO.questionId}" /> <h:inputHidden
+									id="buttonNameHidden" value="#{examBean.renderButton}" />
+					</div>
+					<!-- <table border="2" bgcolor="#F5F5DC" style="width: 1000px;height: 500px">
+						<tr>
+							<td><h3>
+									<h:outputLabel value="#{examBean.questionVO.question}" />
+								</h3></td>
+						</tr>
+						<tr>
+							<td><b>Select one from below options</b><br /> 
+							<h:panelGrid columns="1">
+							<h:panelGroup>
+							<h:selectOneRadio
+									value="#{examBean.examAns}" style="verticle-align:top;font-size:95%;;">
+									<f:selectItem itemValue="Option 1"
+										itemLabel="#{examBean.questionVO.option1}" />
+									<f:selectItem itemValue="Option 2"
+										itemLabel="#{examBean.questionVO.option2}" />
+									<f:selectItem itemValue="Option 3"
+										itemLabel="#{examBean.questionVO.option3}" />
+									<f:selectItem itemValue="Option 4"
+										itemLabel="#{examBean.questionVO.option4}" />
+								</h:selectOneRadio>
+								</h:panelGroup>
+								</h:panelGrid> 
+								<h:inputHidden id="quesIdHidden"
+									value="#{examBean.questionVO.questionId}" /> <h:inputHidden
+									id="buttonNameHidden" value="#{examBean.renderButton}" /></td>
+						</tr>
+					</table>
+					<br /> <br />-->
+					<div>
+					<h:commandButton value="#{examBean.renderButton}"
+						action="#{examBean.populateNextQuestion}" class="btn btn-lg btn-primary">
+						<f:param name="examObtainedMarks"
+							value="#{examBean.examObtainedMarks}" />
+					</h:commandButton>
+					</div> 
+			
+			</div>
+	</h:form>
+	</div>
+	</div>
+</h:body>
+</html>

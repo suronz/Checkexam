@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/Templates/BasicTemplate.xhtml">
+	<ui:define name="content">
+		<div id="wrapper">
+			<div id="container-fluid">
+			<br />
+				<div class="page-header">
+					<h1> <span
+						class="glyphicon glyphicon-tags"></span>  Exam Paper List</h1>
+				</div>
+				<h:form>
+					<h:dataTable value="#{examPaperListBean.examPaperList}"
+						var="examPaper" border="1" id="examPaperListTableId">
+						<h:column>
+							<f:facet name="header">Exam Name</f:facet>
+							<h:commandLink
+								value='#{examPaper.examName} #{examPaper.paperNo} #{examPaper.classCd} #{examPaper.batchCd}'
+								action="#{examPaperListBean.navigate}">
+							</h:commandLink>
+							<h:outputLabel value="#{examPaper.examPaperLinkVal}"
+								style="display:none;" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Exam Start Date and Time</f:facet>
+							<h:outputLabel
+								value='#{examPaper.examDate} #{examPaper.examTime}' />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Actions</f:facet>
+							<h:commandButton value="Activate"></h:commandButton>
+							<h:commandButton value="Deactivate"></h:commandButton>
+							<h:commandButton value="View"></h:commandButton>
+							<h:commandButton value="Edit"></h:commandButton>
+							<h:commandButton value="Delete"></h:commandButton>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

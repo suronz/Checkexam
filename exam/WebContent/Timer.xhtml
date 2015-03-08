@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<p>A script on this page starts this clock:</p>
+
+	<p id="demo"></p>
+
+	<script>
+	alert("AA");
+		var a = 3600;
+		var myVar = setInterval(function() {
+			a = myTimer(a)
+		}, 1000);
+
+		function myTimer(time) {
+			
+			var sec_num = parseInt(time, 10); // don't forget the second param
+			var hours = Math.floor(sec_num / 3600);
+			var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+			var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+			if (hours < 10) {
+				hours = "0" + hours;
+			}
+			if (minutes < 10) {
+				minutes = "0" + minutes;
+			}
+			if (seconds < 10) {
+				seconds = "0" + seconds;
+			}
+			var t = hours + ':' + minutes + ':' + seconds;
+			document.getElementById("demo").innerHTML = t;
+			return time - 1;
+		}
+
+		//alert("5678".toHHMMSS());
+	</script>
+
+</body>
+</html>

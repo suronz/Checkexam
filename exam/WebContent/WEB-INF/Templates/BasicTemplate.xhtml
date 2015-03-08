@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<head>
+	<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.css.map"/>
+	<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap-theme.css" />
+	<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap-theme.css.map" />
+	<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" href="../resources/css/message.css" />
+	<link rel="stylesheet" href="../resources/css/simple-sidebar.css" />
+	<!--  <link rel="stylesheet" href="../resources/bootstrap/css/style.css" />-->
+	
+	<script src="../resources/bootstrap/js/bootstrap.js"></script>
+	<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../resources/bootstrap/js/npm.js"></script> 
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	
+	  <script>
+	  $(function() {
+	    $( ".datepicker" ).datepicker();
+	  });
+	   function addQuestion()
+		{
+			//alert('Question selected
+					
+		}	
+	  </script> 
+</head>
+
+<body>
+<ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>
+	<div id="header">
+	    <ui:insert name="header">
+	    	<ui:include src="header.xhtml"></ui:include>
+	    	 <!--  include your header file or uncomment the include below and create header.xhtml in this directory --> 	
+	    	<ui:include src="sidebar.xhtml"/>
+	    </ui:insert>
+	</div>
+
+
+	<div id="content">
+	  <ui:insert name="content">
+	    	Content area.  See comments below this line in the source.
+	    	<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
+		  	<!-- <div> -->
+	    	<!-- <ui:include src="content.xhtml"/> -->  
+	    	<!-- </div> -->
+	  </ui:insert>
+	</div>
+
+	<div id="footer">
+	  <ui:insert name="footer">
+	    	<!--  include your header file or uncomment the include below and create footer.xhtml in this directory -->
+			<!--<ui:include src="footer.xhtml"/>  -->
+	  </ui:insert>
+	</div>
+
+</body>
+
+</html>

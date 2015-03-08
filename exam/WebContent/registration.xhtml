@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+<SCRIPT type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></SCRIPT>
+<h:head>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
+	<h:outputStylesheet name="bootstrap/css/bootstrap.css.map" /> 
+	<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+	<h:outputStylesheet name="bootstrap/css/bootstrap-theme.css" />
+	<h:outputStylesheet name="bootstrap/css/bootstrap-theme.css.map" />
+	<h:outputStylesheet name="bootstrap/css/bootstrap-theme.min.css" />
+	<h:outputStylesheet name="bootstrap/css/style.css" />
+	<h:outputStylesheet name="message.css" library="css"/>
+	 <h:outputScript name="bootstrap/js/bootstrap.js" />
+	<h:outputScript name="bootstrap/js/bootstrap.min.js" />
+	<h:outputScript name="bootstrap/js/npm.js" />
+	<link rel="stylesheet"
+		href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" />
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	<!-- 
+	<h:outputScript name="bootstrap/js/jquery-1.3.1.min.js"/>
+	 
+	<h:outputScript library="bootstrap/js" name="bootstrap.js"/>
+	<h:outputScript library="bootstrap/js" name="bootstrap.min.js"/>
+	<h:outputScript library="bootstrap/js" name="npm.js"/>
+	-->
+
+	<script>
+	  $(function() {
+	    $( ".datepicker" ).datepicker();
+	  });
+	   function addQuestion()
+		{
+			//alert('Question selected
+					
+		}	
+	  </script>
+	
+	<title>Registration</title>
+</h:head>
+
+
+<h:body style="padding: 60px;">
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand"><h:graphicImage name="pariksha.png" library="images" height="50px" width="120px"/></a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="index.xhtml">HOME </a></li>
+					<li class="active"><a href="faces/login.xhtml">LOGIN</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+	<!--/.navbar-collapse -->
+<!-- 	
+	<div class="main">
+		<div class="login-form">
+			<h1>Member Login</h1>
+			<div class="head">
+				<h:graphicImage library="images" name="user.png"
+					url="/resources/images" />
+			</div>
+			<form>
+				<label>First Name</label> <input type="text" class="form-control" />
+				<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" />
+					<div class="submit">
+						<input type="submit" onclick="myFunction()" value="LOGIN" />
+					</div>
+				<p>
+					<a href="#">Forgot Password ?</a>
+				</p>
+				<p>
+					New User?<a href="registration.xhtml">Signup Here</a>
+				</p>
+			</form>
+		</div>
+		<div class="copy-right">
+			<center>
+				<p>
+					Copyright &#169; 2015. Powered by <a href="http://w3layouts.com">CometTech
+						Pvt. Ltd.</a>
+				</p>
+			</center>
+		</div>
+	</div>  -->
+	
+	<div class="main">
+		<div class="login-form">
+			<h1>Registration</h1>
+			<div class="head">
+				<h:graphicImage library="images" name="user.png" url="/resources/images" style= "margin-top: 60%"/>
+			</div>
+			<br />
+			<h:messages  globalOnly="true" infoClass="sucess" errorClass="error" style="margin-left: 10%"></h:messages>
+			<h:form>
+				<label>First Name</label> <h:inputText value="#{registerBean.registerVO.firstName}"/>
+				<label>Last Name</label> <h:inputText value="#{registerBean.registerVO.lastName}"/>
+				<label>Gurdian's Name <span class="text-danger">*</span></label> 
+				<h:inputText value="#{registerBean.registerVO.gurdainName}"/>
+				<label>DOB <span class="text-danger">*</span></label> 
+				<h:inputText id="registrationDate" styleClass="datepicker" value=" ">
+				</h:inputText>
+				<label>AGE <span class="text-danger">*</span></label>
+				<h:inputText value="#{registerBean.registerVO.age}"/>
+				<label>Address <span class="text-danger">*</span></label> 
+				<br />
+				<h:inputTextarea value="#{registerBean.registerVO.address}"
+					
+					style="width: 290px; height: 89px; background-color: #d3d3d3; border: 1px solid #ded6d6; border-radius: 5px; margin-bottom: 16px;" />
+				<label>Last Exam Marks <span class="text-danger">*</span></label> 
+				<h:inputText value="#{registerBean.registerVO.lastExamMarks}"/>
+				<label>Board/University <span class="text-danger">*</span></label> 
+				<h:inputText value="#{registerBean.registerVO.borad}"/>
+				<label>Phone <span class="text-danger">*</span></label> 
+				<h:inputText value="#{registerBean.registerVO.phone}"/>
+				<label>Email <span class="text-danger">*</span></label>
+				<h:inputText value="#{registerBean.registerVO.email}"/>
+				<label>Password <span class="text-danger">*</span></label> 
+				<h:inputSecret value="#{registerBean.registerVO.password}"/>
+				<h:commandButton value="Save" action="#{registerBean.createUser}"/>
+			</h:form>
+			</div>
+
+		<div class="copy-right">
+			<center>
+				<p>
+					Copyright &#169; 2015. Powered by <a href="http://w3layouts.com">CometTech
+						Pvt. Ltd.</a>
+				</p>
+			</center>
+		</div>
+	</div>		
+
+
+
+</h:body>
+
+</html>
