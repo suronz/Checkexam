@@ -20,7 +20,7 @@ public class RegisLoginDAO {
 		String result = null;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sql = "select * from exam_db.t_user where username=? and password=md5(?)";
+		String sql = "select * from exam_db.t_user where username=? and password=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			System.out.println("Prepared statement executed");
@@ -141,7 +141,7 @@ public class RegisLoginDAO {
 		int userId  = 0;
 		PreparedStatement ps = null;
 		Connection conn = DBHelper.getConnection();
-		String sql = "INSERT INTO exam_db.t_user(username,password,created_at,updated_at,type_id,status) VALUES (?,md5(?),?,?,?,?)";
+		String sql = "INSERT INTO exam_db.t_user(username,password,created_at,updated_at,type_id,status) VALUES (?,?,?,?,?,?)";
 		SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy  hh:mm:ss");
 		String currentDate = df.format(new Date());
 		try {
