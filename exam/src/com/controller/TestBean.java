@@ -1,4 +1,4 @@
-package com.tutorial;
+package com.controller;
 
 public class TestBean {
 

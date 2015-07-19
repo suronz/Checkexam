@@ -3,7 +3,7 @@
  * 
  */
 
-package com.tutorial;
+package com.controller;
 
 import javax.faces.context.FacesContext;
 

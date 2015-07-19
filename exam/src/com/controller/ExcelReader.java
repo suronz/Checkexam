@@ -1,4 +1,4 @@
-package com.tutorial;
+package com.controller;
 
 import java.io.File;
 import java.io.FileInputStream;

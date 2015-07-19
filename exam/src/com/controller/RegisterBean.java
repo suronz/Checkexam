@@ -1,4 +1,4 @@
-package com.tutorial;
+package com.controller;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
