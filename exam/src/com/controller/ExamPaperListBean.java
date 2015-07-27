@@ -29,6 +29,10 @@ public class ExamPaperListBean {
 		}
 	}
 	
+	public String getExamPaperQuestions() {
+		return null;
+	}
+	
 	public String navigateExamInfoPage() {
 		return "examInfoPage";
 	}

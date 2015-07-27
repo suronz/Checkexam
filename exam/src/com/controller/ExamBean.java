@@ -37,13 +37,7 @@ public class ExamBean {
 			SessionHelper.setValueToSession("isPopulate", "N");
 			SessionHelper.setValueToSession("examVOList", new ArrayList<ExamVO>());
 			setRenderButton("Next");
-		}/*else
-		{
-			populateExamQuestionSet();
-			SessionHelper.setValueToSession("examVOList", new ArrayList<ExamVO>());
-			setRenderButton("Next");
-																																
-		}*/
+		}
 		
 	}
 
@@ -51,23 +45,14 @@ public class ExamBean {
 		try {
 			String examName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("examName");
 			String paperNo = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("paperNo");
+			SessionHelper.setValueToSession("examName", examName);
+			SessionHelper.setValueToSession("paperNo", paperNo);
 			System.out.println("--- "+examName+" -- "+paperNo );
 			ExamDAO examDAO = new ExamDAO();
 			examPaperVO = examDAO.getExamInfoFromNameAndPaperNo(examName,paperNo);
 			QuestionDAO questionDAO = new QuestionDAO();
 			List<QuestionVO> examQuestionList = questionDAO.getExamQuestions(examName,paperNo);
 			System.out.println("Exam list size :::"+examQuestionList.size());
-			/*
-			 * for (int i = 0; i < 10; i++) { QuestionVO questionVO = new
-			 * QuestionVO(); questionVO.setQuestionId("12");
-			 * questionVO.setTopic("English");
-			 * questionVO.setQuestion("Which one is fruit?");
-			 * questionVO.setOption1("Apple"); questionVO.setOption2("Bat");
-			 * questionVO.setOption3("Ball"); questionVO.setOption4("Cycle");
-			 * questionVO.setAnswer("Apple");
-			 * 
-			 * getQuestionVOList().add(questionVO); }
-			 */
 			SessionHelper.setValueToSession("EXAMINFO", examPaperVO);
 			SessionHelper.setValueToSession("examQuestionList", examQuestionList);
 			//setQuestionVOList(examQuestionList);
@@ -119,7 +104,7 @@ public class ExamBean {
 			if (questionVOList.size() > quesSeq) {
 				setQuestionVO(questionVOList.get(quesSeq));
 			}
-
+			setExamAns(null);
 			for (ExamVO examVO1 : examVOList) {
 				System.out.println("Ques Id: " + examVO1.getQuesId());
 				System.out.println(examVO1.getExamAns());
@@ -144,6 +129,13 @@ public class ExamBean {
 				}
 				setExamObtainedMarks(String.valueOf(examMarks));
 				SessionHelper.setValueToSession("examObtainedMarks", String.valueOf(examMarks));
+				//Save student answer in DB
+				ExamDAO examDAO = new ExamDAO();
+				String examName = (String) SessionHelper.getValueFromSession("examName");
+				String paperNo = (String) SessionHelper.getValueFromSession("paperNo");
+				String studId = (String) SessionHelper.getValueFromSession("userID");
+				examDAO.setStudExamAns(studId,examVOList,examName,paperNo,getExamObtainedMarks());
+				
 				return "examResultPage";
 			}
 			

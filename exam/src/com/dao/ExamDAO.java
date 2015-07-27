@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.util.DBHelper;
 import com.vo.ExamPaperVO;
+import com.vo.ExamVO;
 import com.vo.QuestionVO;
 
 /**
@@ -63,6 +64,7 @@ public class ExamDAO {
 					examPaperVO.setExamTime(rs.getString("start_time"));
 					examPaperVO.setExamDuration(rs.getString("exam_time"));
 					examPaperVO.setExamPaperLinkVal(rs.getString("name")+"$"+rs.getString("paper_no"));
+					examPaperVO.setExamSecurityKey(rs.getString("exam_paper_key"));
 					
 					examPaperVOList.add(examPaperVO);
 		       }
@@ -103,13 +105,36 @@ public class ExamDAO {
 		return examPaperVO;
 	}
 	
+	public boolean authenticateExamPaper(String examName, String paperNo, String examKey) {
+		boolean isAuthenticate = false;
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement ps = null;
+		String sqlQuery = "SELECT * FROM exam_db.t_exampaper WHERE name=? and paper_no = ? and exam_paper_key = ?";
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, examName);
+			ps.setString(2, paperNo);
+			ps.setString(3, examKey);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+		        //Retrieve by column name
+				isAuthenticate = true;	
+		       }
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return isAuthenticate;
+	}
+	
 	public int insertExamPaper(ExamPaperVO examPaperVO,
 			List<String> examPaperQuesList) {
 		int rowCount = 0;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "INSERT INTO exam_db.t_exampaper (name, paper_no, class, batch, start_date, start_time, time_type, exam_time, crtn_tms) "
-				+ "VALUES (?,?,?,?,?,?,?,?,current_timestamp())";
+		String sqlQuery = "INSERT INTO exam_db.t_exampaper (name, paper_no, class, batch, start_date, start_time, time_type, exam_time, crtn_tms, exam_paper_key) "
+				+ "VALUES (?,?,?,?,?,?,?,?,current_timestamp(),?)";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 
@@ -121,6 +146,7 @@ public class ExamDAO {
 			ps.setString(6, examPaperVO.getExamTime());
 			ps.setString(7, examPaperVO.getExamTimeType());
 			ps.setString(8, examPaperVO.getExamDuration());
+			ps.setString(9, examPaperVO.getExamDuration());
 
 			rowCount = ps.executeUpdate();
 			ps.close();
@@ -141,6 +167,41 @@ public class ExamDAO {
 			e.printStackTrace();
 		}
 		return rowCount;
+	}
+
+	public void setStudExamAns(String studId, List<ExamVO> examVOList, String examName, String paperNo, String totalMarks) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement ps = null;
+		String sqlQuery = "INSERT INTO exam_db.t_stud_exam_ans (stud_id,exam_name,paper_no,question_id,stud_ans,stud_ans_status) values (?,?,?,?,?,?)";
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			
+			for (ExamVO examVO : examVOList) {
+				ps.setString(1, studId);
+				ps.setString(2, examName);
+				ps.setString(3, paperNo);
+				ps.setString(4, examVO.getQuesId());
+				ps.setString(5, examVO.getExamAns());
+				ps.setString(6, examVO.getExamResult());
+				ps.addBatch();
+			}
+			ps.executeBatch();
+			ps.close();
+			
+			sqlQuery = "INSERT INTO exam_db.t_stud_exam_result (stud_id,exam_name,paper_no,total_marks) values (?,?,?,?)";
+			ps = conn.prepareStatement(sqlQuery);
+			
+			ps.setString(1, studId);
+			ps.setString(2, examName);
+			ps.setString(3, paperNo);
+			ps.setString(4, totalMarks);
+			ps.executeUpdate();
+			
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -21,7 +21,7 @@
 							<f:facet name="header">Exam Name</f:facet>
 							<h:commandLink
 								value='#{examPaper.examName} #{examPaper.paperNo} #{examPaper.classCd} #{examPaper.batchCd}'
-								action="#{examPaperListBean.navigate}">
+								action="#{examPaperListBean.getExamPaperQuestions}">
 							</h:commandLink>
 							<h:outputLabel value="#{examPaper.examPaperLinkVal}"
 								style="display:none;" />
@@ -30,6 +30,11 @@
 							<f:facet name="header">Exam Start Date and Time</f:facet>
 							<h:outputLabel
 								value='#{examPaper.examDate} #{examPaper.examTime}' />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Security Key</f:facet>
+							<h:outputLabel
+								value='#{examPaper.examSecurityKey}' />
 						</h:column>
 						<h:column>
 							<f:facet name="header">Actions</f:facet>

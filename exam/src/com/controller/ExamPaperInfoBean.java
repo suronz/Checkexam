@@ -12,6 +12,7 @@ import com.vo.ExamPaperVO;
 
 public class ExamPaperInfoBean {
 	private ExamPaperVO examPaperVO = new ExamPaperVO();
+	private String examSecurityKey;
 	
 
 	public ExamPaperInfoBean() {
@@ -34,7 +35,13 @@ public class ExamPaperInfoBean {
 	
 	//This method is used to redirect to exam page
 	public String navigateExamPage() {
-		return "examPage";
+		boolean isAuthenticate = false;
+		ExamDAO examDAO = new ExamDAO();
+		isAuthenticate = examDAO.authenticateExamPaper(examPaperVO.getExamName(), examPaperVO.getPaperNo(), examSecurityKey);
+		if(isAuthenticate){
+			return "examPage";
+		}
+		return null;
 	}
 	
 	//This method is used to redirect to exam list page
@@ -56,6 +63,12 @@ public class ExamPaperInfoBean {
 		this.examPaperVO = examPaperVO;
 	}
 
+	public String getExamSecurityKey() {
+		return examSecurityKey;
+	}
 
+	public void setExamSecurityKey(String examSecurityKey) {
+		this.examSecurityKey = examSecurityKey;
+	}
 
 }
