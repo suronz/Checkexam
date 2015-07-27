@@ -13,6 +13,7 @@
 	<h:outputStylesheet name="bootstrap-theme.css" library="css" />
 	<h:outputStylesheet name="bootstrap-theme.css.map" library="css" />
 	<h:outputStylesheet name="bootstrap-theme.min.css" library="css" />
+	<h:outputStylesheet name="border.css" library="css"/>
 	<!-- <h:outputStylesheet name="style.css" library="css" /> -->
 	<h:outputScript name="countdown.js" library="js" />
 
@@ -28,23 +29,23 @@
 <h:body>
 <div id="wrapper">
 			<div id="container-fluid">
-	<h:form>
-			<div class="col-md-12">
-				<div class="col-md-8">
-					<h4><h:outputText value="Exam name  - #{examBean.examPaperVO.examName}"></h:outputText></h4>
-					<h4><h:outputText value="Batch - #{examBean.examPaperVO.batchCd}"></h:outputText></h4>
-					<h4><h:outputText value="Paper - #{examBean.examPaperVO.paperNo}"></h:outputText></h4>
-					<h4><h:outputText value="Duration - #{examBean.examPaperVO.examDuration} min"></h:outputText></h4>
+		<h:form>
+			<div class="col-md-12" style="padding-top: 5%;padding-bottom: 3%">
+				<div class="col-md-8" style="padding-left: 10%">
+					<h2><h:outputText value="Exam name  - #{examBean.examPaperVO.examName}"></h:outputText></h2>
+					<h2><h:outputText value="Batch - #{examBean.examPaperVO.batchCd}"></h:outputText></h2>
+					<h2><h:outputText value="Paper - #{examBean.examPaperVO.paperNo}"></h:outputText></h2>
+					<h2><h:outputText value="Duration - #{examBean.examPaperVO.examDuration} min"></h:outputText></h2>
 					<br />
 				</div>
 				<div class="col-md-4">
+					<h2><h:outputLabel value="Time left" ></h:outputLabel></h2>
 					<script type="text/javascript">
 						var myCountdown2 = new Countdown({
 							time : 300,
 							width : 150,
 							height : 80,
 							rangeHi : "minute",
-							padding : 1,
 							numbers : {
 								font : "Arial",
 								color : "#FFFFFF",
@@ -62,63 +63,39 @@
 					</script>
 				</div>
 			</div>
-			<div class="container" align="center">
+			<div class="container" align="left"  style="padding-left: 7%;padding-top: 20%">
+			  <!--  <div style="border: 2px solid #8AC007;padding-left: 5%;padding-bottom: 5%;">-->
+			 <div class="rounded_border"> 
 					<div>
+							<h1><h:outputLabel value="Question : "/></h1>
 							<h2><h:outputLabel value="#{examBean.questionVO.question}" /></h2>
 					</div>
 					<div>
+						<h1><h:outputLabel value="Options : "/></h1>
 						<h:selectOneRadio
-									value="#{examBean.examAns}" style="verticle-align:top;font-size:200%;">
+									value="#{examBean.examAns}" style="font-size:200%;" 
+									layout="pageDirection">
 									<f:selectItem itemValue="Option 1"
-										itemLabel="#{examBean.questionVO.option1}" />
+										itemLabel="#{examBean.questionVO.option1}"/>
 									<f:selectItem itemValue="Option 2"
 										itemLabel="#{examBean.questionVO.option2}" />
 									<f:selectItem itemValue="Option 3"
 										itemLabel="#{examBean.questionVO.option3}" />
-									<f:selectItem itemValue="Option 4"
+									<f:selectItem itemValue="Option 4" 
 										itemLabel="#{examBean.questionVO.option4}" />
-								</h:selectOneRadio>
+						</h:selectOneRadio>						
 								<h:inputHidden id="quesIdHidden"
 									value="#{examBean.questionVO.questionId}" /> <h:inputHidden
 									id="buttonNameHidden" value="#{examBean.renderButton}" />
 					</div>
-					<!-- <table border="2" bgcolor="#F5F5DC" style="width: 1000px;height: 500px">
-						<tr>
-							<td><h3>
-									<h:outputLabel value="#{examBean.questionVO.question}" />
-								</h3></td>
-						</tr>
-						<tr>
-							<td><b>Select one from below options</b><br /> 
-							<h:panelGrid columns="1">
-							<h:panelGroup>
-							<h:selectOneRadio
-									value="#{examBean.examAns}" style="verticle-align:top;font-size:95%;;">
-									<f:selectItem itemValue="Option 1"
-										itemLabel="#{examBean.questionVO.option1}" />
-									<f:selectItem itemValue="Option 2"
-										itemLabel="#{examBean.questionVO.option2}" />
-									<f:selectItem itemValue="Option 3"
-										itemLabel="#{examBean.questionVO.option3}" />
-									<f:selectItem itemValue="Option 4"
-										itemLabel="#{examBean.questionVO.option4}" />
-								</h:selectOneRadio>
-								</h:panelGroup>
-								</h:panelGrid> 
-								<h:inputHidden id="quesIdHidden"
-									value="#{examBean.questionVO.questionId}" /> <h:inputHidden
-									id="buttonNameHidden" value="#{examBean.renderButton}" /></td>
-						</tr>
-					</table>
-					<br /> <br />-->
-					<div>
+					<div align="center">
 					<h:commandButton value="#{examBean.renderButton}"
 						action="#{examBean.populateNextQuestion}" class="btn btn-lg btn-primary">
 						<f:param name="examObtainedMarks"
 							value="#{examBean.examObtainedMarks}" />
 					</h:commandButton>
 					</div> 
-			
+				</div>
 			</div>
 	</h:form>
 	</div>

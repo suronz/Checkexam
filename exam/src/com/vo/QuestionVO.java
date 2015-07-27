@@ -54,7 +54,6 @@ public class QuestionVO {
 	public String getOption2() {
 		return option2;
 	}
-
 	public void setOption2(String option2) {
 		this.option2 = option2;
 	}

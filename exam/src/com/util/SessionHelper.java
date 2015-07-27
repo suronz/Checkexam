@@ -11,7 +11,7 @@ public class SessionHelper {
 			sessionVal = FacesContext.getCurrentInstance().getExternalContext()
 					.getSessionMap().get(sessionKey);
 			System.out.println("Session value is fetched for Key :: "
-					+ sessionKey);
+					+ sessionVal);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,8 +40,7 @@ public class SessionHelper {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		
+		}		
 		public static void invalidateSession()
 		{
 			try

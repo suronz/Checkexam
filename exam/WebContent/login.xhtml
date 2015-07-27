@@ -73,7 +73,7 @@
 									<h:commandButton  action="#{loginBean.validateCredential}" value="Login"/>
 									<h:message for="#{LoginBean.name}#{LoginBean.password}" errorClass="error "/>
 									<p>
-										New User?<a href="registration.xhtml">Signup Here!</a>
+										New User?<h:link value="Sign up here" outcome="registration.xhtml"/>
 									</p>
 								</h:form>
 						</div>
