@@ -1,0 +1,8 @@
+.rounded_border
+{
+	 border-radius: 25px;
+	 border: 2px solid #8AC007;
+	 background: #E0E0E0;
+	 padding-left: 5%;
+	 padding-bottom: 5%;
+}
