@@ -5,42 +5,42 @@
 	version="2.2">
 	<managed-bean>
 		<managed-bean-name>loginBean</managed-bean-name>
-		<managed-bean-class>com.tutorial.LoginBean</managed-bean-class>
+		<managed-bean-class>com.controller.LoginBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>addQuesBean</managed-bean-name>
-		<managed-bean-class>com.tutorial.AddQuestionBean</managed-bean-class>
+		<managed-bean-class>com.controller.AddQuestionBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>examPaperBean</managed-bean-name>
-		<managed-bean-class>com.tutorial.ExamPaperBean</managed-bean-class>
+		<managed-bean-class>com.controller.ExamPaperBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>examPaperListBean</managed-bean-name>
-		<managed-bean-class>com.tutorial.ExamPaperListBean</managed-bean-class>
+		<managed-bean-class>com.controller.ExamPaperListBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>examBean</managed-bean-name>
-		<managed-bean-class>com.tutorial.ExamBean</managed-bean-class>
+		<managed-bean-class>com.controller.ExamBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>registerBean</managed-bean-name>
-		<managed-bean-class>com.tutorial.RegisterBean</managed-bean-class>
+		<managed-bean-class>com.controller.RegisterBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>examInfoBean</managed-bean-name>
-		<managed-bean-class>com.tutorial.ExamPaperInfoBean</managed-bean-class>
+		<managed-bean-class>com.controller.ExamPaperInfoBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>examResultBean</managed-bean-name>
-		<managed-bean-class>com.tutorial.ExamResultBean</managed-bean-class>
+		<managed-bean-class>com.controller.ExamResultBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 

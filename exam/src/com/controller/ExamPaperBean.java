@@ -3,13 +3,15 @@
  * 
  */
 
-package com.tutorial;
+package com.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.dao.QuestionDAO;
 import com.vo.ExamPaperVO;
@@ -71,13 +73,14 @@ public class ExamPaperBean {
 						questionList.add(questionVO.getQuestionId());
 					}
 				}
-				if(questionList.size() >= 5)
-				{
-					int result = questionDAO.insertExamPaper(examPaperVO, questionList);
-					FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_INFO,"QUESTION PAPER SUCESSESFULLY CREATED", null));	
-				}
-				else
-					FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_ERROR,"PLEASE SELECT AT LEAST 5 QUESTION", null));
+				//if(questionList.size() >= 5)
+				//{
+				String examSecurityKey = Long.toHexString(Double.doubleToLongBits(Math.random()));
+				int result = questionDAO.insertExamPaper(examPaperVO, questionList, examSecurityKey);
+				FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_INFO,"QUESTION PAPER SUCESSESFULLY CREATED", null));	
+				//}
+				//else
+					//FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_ERROR,"PLEASE SELECT AT LEAST 5 QUESTION", null));
 
 
 				

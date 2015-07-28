@@ -11,7 +11,6 @@ import java.util.Date;
 
 import com.util.DBHelper;
 import com.vo.RegisterVO;
-import com.vo.UserVO;
 
 
 public class RegisLoginDAO {

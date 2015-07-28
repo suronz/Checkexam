@@ -3,7 +3,7 @@
  * 
  */
 
-package com.tutorial;
+package com.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,10 @@ public class ExamPaperListBean {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getExamPaperQuestions() {
+		return null;
 	}
 	
 	public String navigateExamInfoPage() {

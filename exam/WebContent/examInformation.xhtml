@@ -21,7 +21,7 @@
 					<h3> Batch     : <h:outputText value="#{examInfoBean.examPaperVO.batchCd}"></h:outputText></h3> <br />
 
 				<h:outputLabel value="Enter The Security Key" />
-				<h:inputText id="securityKeyId" />
+				<h:inputText id="securityKeyId" value="#{examInfoBean.examSecurityKey}"/>
 				<h:commandButton value="Start Exam" action="#{examInfoBean.navigateExamPage}" class="btn btn-lg btn-primary">
 					<f:param name="examName"
 						value="#{examInfoBean.examPaperVO.examName}" />

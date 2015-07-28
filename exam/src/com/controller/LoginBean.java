@@ -3,12 +3,13 @@
  * 
  */
 
-package com.tutorial;
+package com.controller;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import com.dao.RegisLoginDAO;
+import com.util.SessionHelper;
 
 public class LoginBean
 {
@@ -26,6 +27,7 @@ public class LoginBean
 		System.out.println("\nuName : "+uName+"\nPass "+pass);
 		String result  = regisLoginDao.checkUserAvail(uName, pass);
 		System.out.println("Present "+result);
+		SessionHelper.setValueToSession("userID", uName);
 		if(result != null)
 		{
 			if(result.equals("admin"))

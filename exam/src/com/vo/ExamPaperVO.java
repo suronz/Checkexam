@@ -10,6 +10,7 @@ public class ExamPaperVO {
 	private String paperNo;
 	private String examTimeType;
 	private String examDuration;
+	private String examSecurityKey;
 	
 	private String examPaperLinkVal;
 	
@@ -66,6 +67,12 @@ public class ExamPaperVO {
 	}
 	public void setExamPaperLinkVal(String examPaperLinkVal) {
 		this.examPaperLinkVal = examPaperLinkVal;
+	}
+	public String getExamSecurityKey() {
+		return examSecurityKey;
+	}
+	public void setExamSecurityKey(String examSecurityKey) {
+		this.examSecurityKey = examSecurityKey;
 	}
 	
 }
