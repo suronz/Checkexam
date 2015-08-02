@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.lang.StringUtils;
 
 import com.dao.QuestionDAO;
+import com.util.SessionHelper;
 import com.vo.ExamPaperVO;
 import com.vo.QuestionVO;
 
@@ -76,7 +77,8 @@ public class ExamPaperBean {
 				//if(questionList.size() >= 5)
 				//{
 				String examSecurityKey = Long.toHexString(Double.doubleToLongBits(Math.random()));
-				int result = questionDAO.insertExamPaper(examPaperVO, questionList, examSecurityKey);
+				String userId = (String) SessionHelper.getValueFromSession("userID");
+				int result = questionDAO.insertExamPaper(examPaperVO, questionList, examSecurityKey, userId);
 				FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_INFO,"QUESTION PAPER SUCESSESFULLY CREATED", null));	
 				//}
 				//else

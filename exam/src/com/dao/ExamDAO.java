@@ -45,13 +45,14 @@ public class ExamDAO {
 		return rowCount;
 	}
 	
-	public List<ExamPaperVO> getAllExamPaper() {
+	public List<ExamPaperVO> getAllExamPaper(String userId) {
 		List<ExamPaperVO> examPaperVOList= new ArrayList<ExamPaperVO>();
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "select * from exam_db.t_exampaper";
+		String sqlQuery = "select * from exam_db.t_exampaper where created_by = ?";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, userId);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 					ExamPaperVO examPaperVO = new ExamPaperVO();

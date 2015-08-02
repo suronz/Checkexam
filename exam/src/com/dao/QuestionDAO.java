@@ -110,12 +110,12 @@ public class QuestionDAO {
 	}
 	
 	public int insertExamPaper(ExamPaperVO examPaperVO,
-			List<String> examPaperQuesList, String examKey) {
+			List<String> examPaperQuesList, String examKey, String userId) {
 		int rowCount = 0;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "INSERT INTO exam_db.t_exampaper (name, paper_no, class, batch, start_date, start_time, time_type, exam_time, crtn_tms, exam_paper_key) "
-				+ "VALUES (?,?,?,?,?,?,?,?,current_timestamp(),?)";
+		String sqlQuery = "INSERT INTO exam_db.t_exampaper (name, paper_no, class, batch, start_date, start_time, time_type, exam_time, crtn_tms, exam_paper_key, created_by) "
+				+ "VALUES (?,?,?,?,?,?,?,?,current_timestamp(),?,?)";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 
@@ -128,6 +128,7 @@ public class QuestionDAO {
 			ps.setString(7, examPaperVO.getExamTimeType());
 			ps.setString(8, examPaperVO.getExamDuration());
 			ps.setString(9, examKey);
+			ps.setString(10, userId);
 			
 			rowCount = ps.executeUpdate();
 			ps.close();

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dao.ExamDAO;
+import com.util.SessionHelper;
 import com.vo.ExamPaperVO;
 
 public class ExamPaperListBean {
@@ -21,7 +22,8 @@ public class ExamPaperListBean {
 	private void populateAllExamPaper() {
 		try {
 			ExamDAO examDAO = new ExamDAO();
-			setExamPaperList(examDAO.getAllExamPaper());
+			String userId = (String) SessionHelper.getValueFromSession("userID");
+			setExamPaperList(examDAO.getAllExamPaper(userId));
 
 
 		} catch (Exception e) {
