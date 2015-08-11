@@ -6,7 +6,7 @@ public class RegisterVO {
 	private String firstName;
 	private String lastName;
 	private String gurdainName;
-	private int age;
+	private String age;
 	private String gender;
 	private String address;
 	private String lastExamMarks;
@@ -27,12 +27,6 @@ public class RegisterVO {
 	}
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
 	}
 	public String getGender() {
 		return gender;
@@ -108,6 +102,12 @@ public class RegisterVO {
 				+ ", lastExamMarks=" + lastExamMarks + ", borad=" + borad
 				+ ", gurdainName=" + gurdainName + ", phone=" + phone
 				+ ", email=" + email + "]";
+	}
+	public String getAge() {
+		return age;
+	}
+	public void setAge(String age) {
+		this.age = age;
 	}
 	
 }

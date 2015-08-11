@@ -20,7 +20,7 @@ public class RegisterBean {
 	{System.out.println("create user called");
 	String actionStr = null;
 	if((registerVO.getEmail().equals(""))|| (registerVO.getFirstName().equals(""))
-	   || (registerVO.getLastName().equals("")) || (registerVO.getAge() == 0) || (registerVO.getAddress().equals(""))
+	   || (registerVO.getLastName().equals("")) || (registerVO.getAge().equals("")) || (registerVO.getAddress().equals(""))
 	   || (registerVO.getBorad().equals("")) ||  (registerVO.getGurdainName().equals(""))
 	   || (registerVO.getPassword().equals("")) || (registerVO.getPhone().equals("")))
 	{
@@ -30,7 +30,7 @@ public class RegisterBean {
 	}else
 	{
 		registerVO.setUserName(registerVO.getEmail());
-		result  = regisLoginDao.insertUserProfile(registerVO);
+		regisLoginDao.registerStudent(registerVO);
 	    FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_INFO,"REGISTRATION SUCCESSFULLY", null));
 		actionStr = "register";	
 	}
@@ -46,7 +46,7 @@ public class RegisterBean {
 		this.registerVO.setFirstName("");
 		this.registerVO.setLastName("");
 		this.registerVO.setGurdainName("");
-		this.registerVO.setAge(0);
+		this.registerVO.setAge("");
 		this.registerVO.setAddress("");
 		this.registerVO.setLastExamMarks("");
 		this.registerVO.setBorad("");
