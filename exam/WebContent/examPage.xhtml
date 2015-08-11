@@ -6,6 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+	
 <h:head>
 	<h:outputStylesheet name="bootstrap.min.css" library="css" />
 	<h:outputStylesheet name="bootstrap.css.map" library="css" />
@@ -16,6 +17,11 @@
 	<h:outputStylesheet name="border.css" library="css"/>
 	<!-- <h:outputStylesheet name="style.css" library="css" /> -->
 	<h:outputScript name="countdown.js" library="js" />
+	<h:outputScript name="jquery-1.3.1.min.js" library="js"></h:outputScript>
+	<h:outputScript name="jquery.countdown.js" library="js"></h:outputScript>
+	<h:outputScript name="jquery.countdown.min.js" library="js"></h:outputScript>
+	<h:outputScript name="timer.js" library="js"></h:outputScript>
+	
 
 	<!-- shadow	: {
 											x : 0,			// x offset (in pixels)
@@ -26,9 +32,11 @@
 										}
 						}, -->
 </h:head>
+
 <h:body>
 <div id="wrapper">
 			<div id="container-fluid">
+			
 		<h:form>
 			<div class="col-md-12" style="padding-top: 5%;padding-bottom: 3%">
 				<div class="col-md-8" style="padding-left: 10%">
@@ -38,31 +46,66 @@
 					<h2><h:outputText value="Duration - #{examBean.examPaperVO.examDuration} min"></h:outputText></h2>
 					<br />
 				</div>
-				<div class="col-md-4">
-					<h2><h:outputLabel value="Time left" ></h:outputLabel></h2>
+				<div id="timeSet" class="col-md-4">
+					<!--  <h2><h:outputLabel value="Time left" ></h:outputLabel></h2>
 					<script type="text/javascript">
-						var myCountdown2 = new Countdown({
-							time : 300,
-							width : 150,
-							height : 80,
-							rangeHi : "minute",
-							numbers : {
-								font : "Arial",
-								color : "#FFFFFF",
-								bkgd : "#365D8B",
-								fontSize : 200,
-								rounded : 0.15, // percentage of size 
-							},
+					 var fiveSeconds = new Date().getTime() + 5000;
+					  $('#timeSet').countdown(fiveSeconds, {elapse: true})
+					 	.on('update.countdown', function(event) {
+					    var $this = $(this);
+					    if (event.elapsed) {
+					      console.log("elapased true"+$(this));	
+					      $this.html(event.strftime('After end: <span>%H:%M:%S</span>'));
+					    } else {
+					    	console.log("elapased false"+$this);
+					      $this.html(event.strftime('To end: <span>%H:%M:%S</span>'));
+					    }
+					 });
+					</script>-->
+					<!--  <script type="text/javascript">
+						var duration = #{examBean.timeLeft} ;
+						var myCountdown = new Countdown({
+								time : duration,
+								width : 150,
+								height : 80,
+								rangeHi : "minute",
+								numbers : {
+									font : "Arial",
+									color : "#FFFFFF",
+									bkgd : "#365D8B",
+									fontSize : 200,
+									rounded : 0.15, // percentage of size 
+								},
 
-							labels : {
-								textScale : 0.8,
-								offset : 5
-							}
+								labels : {
+									textScale : 0.8,
+									offset : 5
+								},
+								onEnd: function() {
+							    	//console.log('Happy New Year!');
+									alert("you clicked"+ myCountdown.e._lastTime);
+							    }
 
-						});
-					</script>
+							});
+						function setTimer(){
+							
+							alert("you clicked");
+							//console.log("Inside set timer");
+							//return true;
+							//+ myCountdown.time)
+							//document.getElementById('timeLeftHidden').value = myCountdown.time;
+									
+						   }
+						
+					   /*$( document ).ready(function() {
+					    	//duration = #{examBean.examPaperVO.examDuration};
+					        //console.log( duration );
+					       // setTimer();
+					    }); */
+					</script>-->
 				</div>
 			</div>
+			
 			<div class="container" align="left"  style="padding-left: 7%;padding-top: 20%">
 			  <!--  <div style="border: 2px solid #8AC007;padding-left: 5%;padding-bottom: 5%;">-->
 			 <div class="rounded_border"> 
@@ -87,13 +130,18 @@
 								<h:inputHidden id="quesIdHidden"
 									value="#{examBean.questionVO.questionId}" /> <h:inputHidden
 									id="buttonNameHidden" value="#{examBean.renderButton}" />
+									<h:inputHidden id="timeLeftHidden"  value="#{examBean.timeLeft}">
+									</h:inputHidden>
+
 					</div>
 					<div align="center">
-					<h:commandButton value="#{examBean.renderButton}"
-						action="#{examBean.populateNextQuestion}" class="btn btn-lg btn-primary">
+					<h:commandButton id="nextBtn" value="#{examBean.renderButton}" onclick="myTimer('30')"
+						action="#{examBean.populateNextQuestion}" class="btn btn-lg btn-primary"
+						>
 						<f:param name="examObtainedMarks"
 							value="#{examBean.examObtainedMarks}" />
 					</h:commandButton>
+					
 					</div> 
 				</div>
 			</div>

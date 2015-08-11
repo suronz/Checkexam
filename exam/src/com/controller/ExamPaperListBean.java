@@ -23,7 +23,8 @@ public class ExamPaperListBean {
 		try {
 			ExamDAO examDAO = new ExamDAO();
 			String userId = (String) SessionHelper.getValueFromSession("userID");
-			setExamPaperList(examDAO.getAllExamPaper(userId));
+			System.out.println("User id" +userId);
+			setExamPaperList(examDAO.getAllExamPaperForStudent(userId));
 
 
 		} catch (Exception e) {

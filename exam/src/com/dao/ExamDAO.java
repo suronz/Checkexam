@@ -77,6 +77,40 @@ public class ExamDAO {
 		return examPaperVOList;
 	}
 	
+	//temp testing purpose added
+	public List<ExamPaperVO> getAllExamPaperForStudent(String userId) {
+		List<ExamPaperVO> examPaperVOList= new ArrayList<ExamPaperVO>();
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement ps = null;
+		String sqlQuery = "select * from exam_db.t_exampaper";
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			//ps.setString(1, userId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+					ExamPaperVO examPaperVO = new ExamPaperVO();
+		          //Retrieve by column name
+					examPaperVO.setExamName(rs.getString("name"));
+					examPaperVO.setPaperNo(rs.getString("paper_no"));
+					examPaperVO.setClassCd(rs.getString("class"));
+					examPaperVO.setBatchCd(rs.getString("batch"));
+					examPaperVO.setExamDate(rs.getString("start_date"));
+					examPaperVO.setExamTime(rs.getString("start_time"));
+					examPaperVO.setExamDuration(rs.getString("exam_time"));
+					examPaperVO.setExamPaperLinkVal(rs.getString("name")+"$"+rs.getString("paper_no"));
+					examPaperVO.setExamSecurityKey(rs.getString("exam_paper_key"));
+					
+					examPaperVOList.add(examPaperVO);
+		       }
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return examPaperVOList;
+	}
+	
+	
 	public ExamPaperVO getExamInfoFromNameAndPaperNo(String examName, String paperNo) {
 		ExamPaperVO examPaperVO = new ExamPaperVO();
 		Connection conn = DBHelper.getConnection();
