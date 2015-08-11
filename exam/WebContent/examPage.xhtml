@@ -20,7 +20,6 @@
 	<h:outputScript name="jquery-1.3.1.min.js" library="js"></h:outputScript>
 	<h:outputScript name="jquery.countdown.js" library="js"></h:outputScript>
 	<h:outputScript name="jquery.countdown.min.js" library="js"></h:outputScript>
-	<h:outputScript name="timer.js" library="js"></h:outputScript>
 	
 
 	<!-- shadow	: {
@@ -135,7 +134,7 @@
 
 					</div>
 					<div align="center">
-					<h:commandButton id="nextBtn" value="#{examBean.renderButton}" onclick="myTimer('30')"
+					<h:commandButton id="nextBtn" value="#{examBean.renderButton}"
 						action="#{examBean.populateNextQuestion}" class="btn btn-lg btn-primary"
 						>
 						<f:param name="examObtainedMarks"
