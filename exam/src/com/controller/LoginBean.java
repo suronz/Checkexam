@@ -27,6 +27,7 @@ public class LoginBean
 		System.out.println("\nuName : "+uName+"\nPass "+pass);
 		String result  = regisLoginDao.checkUserAvail(uName, pass);
 		System.out.println("Present "+result);
+		SessionHelper.setValueToSession("isPopulate", null);
 		SessionHelper.setValueToSession("userID", uName);
 		if(result != null)
 		{

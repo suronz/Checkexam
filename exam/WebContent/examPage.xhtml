@@ -36,31 +36,36 @@
 <div id="wrapper">
 			<div id="container-fluid">
 			
-		<h:form>
+		<h:form id="examPageId">
 			<div class="col-md-12" style="padding-top: 5%;padding-bottom: 3%">
 				<div class="col-md-8" style="padding-left: 10%">
 					<h2><h:outputText value="Exam name  - #{examBean.examPaperVO.examName}"></h:outputText></h2>
 					<h2><h:outputText value="Batch - #{examBean.examPaperVO.batchCd}"></h:outputText></h2>
 					<h2><h:outputText value="Paper - #{examBean.examPaperVO.paperNo}"></h:outputText></h2>
 					<h2><h:outputText value="Duration - #{examBean.examPaperVO.examDuration} min"></h:outputText></h2>
+					<h:inputHidden id="timeLeftHidden"  value="#{examBean.timeLeft}"></h:inputHidden>
 					<br />
 				</div>
-				<div id="timeSet" class="col-md-4">
-					<!--  <h2><h:outputLabel value="Time left" ></h:outputLabel></h2>
+				
+				<div  id="timeSet" class="col-md-4">
+					
+					
 					<script type="text/javascript">
-					 var fiveSeconds = new Date().getTime() + 5000;
-					  $('#timeSet').countdown(fiveSeconds, {elapse: true})
+					var duration =  #{examBean.timeLeft}*60*1000;
+					var duration_min = new Date().getTime() + duration;
+					  $('#timeSet').countdown(duration_min,{elapse: true})
 					 	.on('update.countdown', function(event) {
-					    var $this = $(this);
-					    if (event.elapsed) {
-					      console.log("elapased true"+$(this));	
-					      $this.html(event.strftime('After end: <span>%H:%M:%S</span>'));
-					    } else {
-					    	console.log("elapased false"+$this);
-					      $this.html(event.strftime('To end: <span>%H:%M:%S</span>'));
-					    }
+					 		var $this = $(this);
+					 		var timeLeft = event.offset.minutes + event.offset.seconds/60;
+					 		console.log("Minute left "+event.offset.minutes);
+					 		console.log("Second left "+event.offset.seconds);
+					 		 $("#examPageId\\:timeLeftHidden").val(timeLeft);
+					 		//#{examBean.timeLeft} = event.offset.minutes;
+					 		//alert("Time Left:"+event.offset.minutes+"  --  "+$("#examPageId\\:timeLeftHidden").val());
+					 		$this.html(event.strftime('Time left: <span>%H:%M:%S</span>'));
+					    
 					 });
-					</script>-->
+					</script>
 					<!--  <script type="text/javascript">
 						var duration = #{examBean.timeLeft} ;
 						var myCountdown = new Countdown({
@@ -129,9 +134,7 @@
 								<h:inputHidden id="quesIdHidden"
 									value="#{examBean.questionVO.questionId}" /> <h:inputHidden
 									id="buttonNameHidden" value="#{examBean.renderButton}" />
-									<h:inputHidden id="timeLeftHidden"  value="#{examBean.timeLeft}">
-									</h:inputHidden>
-
+									
 					</div>
 					<div align="center">
 					<h:commandButton id="nextBtn" value="#{examBean.renderButton}"

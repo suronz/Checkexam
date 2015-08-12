@@ -24,9 +24,7 @@ public class ExamPaperListBean {
 			ExamDAO examDAO = new ExamDAO();
 			String userId = (String) SessionHelper.getValueFromSession("userID");
 			System.out.println("User id" +userId);
-			setExamPaperList(examDAO.getAllExamPaperForStudent(userId));
-
-
+			setExamPaperList(examDAO.getAllExamPaper(userId));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
