@@ -59,8 +59,10 @@ public class ExamBean {
 			//setQuestionVOList(examQuestionList);
 			setQuestionVO(examQuestionList.get(0));
 			//setPopulate(false);
-			setTimeLeft(examPaperVO.getExamTime());
-			System.out.println("Time left "+getTimeLeft());
+
+			
+
+			setTimeLeft(examPaperVO.getExamDuration());
 
 		} catch (Exception e) {
 			e.printStackTrace();

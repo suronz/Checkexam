@@ -2,22 +2,41 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <h:form>
-            <br/>
-            <center>
-            <h1>Exam Result
-            <br/>
-            <h:outputLabel value="Total Marks Obtained :: #{examResultBean.examObtainedMarks}"/>
-            
-            <br /><br />
-            <h:commandButton value="Return home" action="#{examResultBean.redirectToHome}"/>
-            </h1>
-            </center>
-        </h:form>
-    </h:head>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script type="text/javascript">
+	$( document ).ready(function() {
+		setTimeout(function(){
+			$("#loaderId").css( "display", "none" ); 
+			$("#resultId").css( "display", "inline" );
+			}, 5000);
+	});
+	</script>
+	<h:form id="resultForm">
+		<br /><br /><br /><br />
+		<div class="head" id="loaderId">
+		<center>
+			<h:graphicImage library="images" name="submit.gif"
+				url="/resources/images" />
+		</center>
+		</div>
+		<div id="resultId" style="display: none;">
+			<center>
+				<h1>
+					Exam Result <br />
+					<h:outputLabel
+						value="Result is saved successfully." />
+
+					<br />
+					<br />
+					<h:commandButton value="Return home"
+						action="#{examResultBean.redirectToHome}" />
+				</h1>
+			</center>
+		</div>
+	</h:form>
+</h:head>
 </html>

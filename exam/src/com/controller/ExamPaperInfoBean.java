@@ -5,9 +5,11 @@
 
 package com.controller;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import com.dao.ExamDAO;
+import com.util.SessionHelper;
 import com.vo.ExamPaperVO;
 
 public class ExamPaperInfoBean {
@@ -36,11 +38,19 @@ public class ExamPaperInfoBean {
 	//This method is used to redirect to exam page
 	public String navigateExamPage() {
 		boolean isAuthenticate = false;
+		boolean isExamPerformed = false;
+		String studId = (String) SessionHelper.getValueFromSession("userID");
 		ExamDAO examDAO = new ExamDAO();
+		isExamPerformed = examDAO.checkExamPerformed(examPaperVO.getExamName(), examPaperVO.getPaperNo(),studId);
+		if(isExamPerformed){
+			FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_ERROR,"You have already performed this examination.", null));
+			return null;
+		}
 		isAuthenticate = examDAO.authenticateExamPaper(examPaperVO.getExamName(), examPaperVO.getPaperNo(), examSecurityKey);
 		if(isAuthenticate){
 			return "examPage";
 		}
+		FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Security Key !", null));
 		return null;
 	}
 	
