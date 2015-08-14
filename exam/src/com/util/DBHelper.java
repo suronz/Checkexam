@@ -13,9 +13,9 @@ public class DBHelper {
     	  /*Connection conn = null;
 		  String userName = "epariksh_test"; 
 		  String password = "test@123";
-			Connection conn = null;
-		  String userName = "root"; 
-		  String password = "root";
+			//Connection conn = null;
+		  //String userName = "root"; 
+		 // String password = "root";
 		  try {
 		  Class.forName(JDBC_DRIVER);
 		  conn = DriverManager.getConnection(DB_URL,userName,password);
