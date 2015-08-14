@@ -51,14 +51,15 @@
 					
 					
 					<script type="text/javascript">
+					console.log("Duration "+#{examBean.timeLeft});
 					var duration =  #{examBean.timeLeft}*60*1000;
 					var duration_min = new Date().getTime() + duration;
 					  $('#timeSet').countdown(duration_min,{elapse: true})
 					 	.on('update.countdown', function(event) {
 					 		var $this = $(this);
 					 		var timeLeft = event.offset.minutes + event.offset.seconds/60;
-					 		console.log("Minute left "+event.offset.minutes);
-					 		console.log("Second left "+event.offset.seconds);
+					 		//console.log("Minute left "+event.offset.minutes);
+					 		//console.log("Second left "+event.offset.seconds);
 					 		 $("#examPageId\\:timeLeftHidden").val(timeLeft);
 					 		//#{examBean.timeLeft} = event.offset.minutes;
 					 		//alert("Time Left:"+event.offset.minutes+"  --  "+$("#examPageId\\:timeLeftHidden").val());

@@ -60,6 +60,7 @@ public class ExamBean {
 			setQuestionVO(examQuestionList.get(0));
 			//setPopulate(false);
 			setTimeLeft(examPaperVO.getExamTime());
+			System.out.println("Time left "+getTimeLeft());
 
 		} catch (Exception e) {
 			e.printStackTrace();
