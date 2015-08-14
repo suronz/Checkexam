@@ -247,4 +247,31 @@ public class ExamDAO {
 		}
 	}
 
+	public boolean checkExamPerformed(String examName, String paperNo, String studId) {
+		boolean isExamPerformed = false;
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement ps = null;
+		int count = 0;
+		String sqlQuery = "select count(*) from epariksh_exam_db.t_stud_exam_result where exam_name = ? and paper_no = ? and stud_id = ?";
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, examName);
+			ps.setString(2, paperNo);
+			ps.setString(3, studId);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+		        //Retrieve by column name
+				count = rs.getInt(1);	
+		       }
+			if(count != 0){
+				isExamPerformed = true;
+			}
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return isExamPerformed;
+	}
+
 }

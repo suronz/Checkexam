@@ -10,8 +10,8 @@ public class DBHelper {
     
 	public static Connection getConnection() {
     	Connection conn = null;
-		  String userName = "epariksh_test"; 
-		  String password = "test@123";
+		  String userName = "root"; 
+		  String password = "root";
 		  try {
 		  Class.forName(JDBC_DRIVER);
 		  conn = DriverManager.getConnection(DB_URL,userName,password);
