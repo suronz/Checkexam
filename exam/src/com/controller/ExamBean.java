@@ -29,6 +29,7 @@ public class ExamBean {
 	private String renderButton;
 	private String examObtainedMarks;
 	private ExamPaperVO examPaperVO = new ExamPaperVO();
+	private String isExamTimeUp = null;
 
 	public ExamBean() {
 		String isPopulate = String.valueOf(SessionHelper.getValueFromSession("isPopulate"));
@@ -116,6 +117,11 @@ public class ExamBean {
 			System.out.println(examVO1.getExamResult());
 		}
 
+		if(isExamTimeUp.equals("Y"))
+		{
+			return saveStudentAns(examVOList);
+		}
+
 		if (questionVOList.size() == quesSeq + 1) {
 			setRenderButton("Submit");
 		}
@@ -125,28 +131,35 @@ public class ExamBean {
 		}
 		else
 		{
-			int examMarks = 0;
-			for (ExamVO examVO1 : examVOList) {
-				if(StringUtils.equals("Correct", examVO1.getExamResult()))
-				{
-					examMarks++;
-				}
-			}
-			setExamObtainedMarks(String.valueOf(examMarks));
-			SessionHelper.setValueToSession("examObtainedMarks", String.valueOf(examMarks));
-			//Save student answer in DB
-			ExamDAO examDAO = new ExamDAO();
-			String examName = (String) SessionHelper.getValueFromSession("examName");
-			String paperNo = (String) SessionHelper.getValueFromSession("paperNo");
-			String studId = (String) SessionHelper.getValueFromSession("userID");
-			examDAO.setStudExamAns(studId,examVOList,examName,paperNo,getExamObtainedMarks());
-
-			return "examResultPage";
+			return saveStudentAns(examVOList);
 		}
-
+		
 
 		return null;
 		//}
+	}
+
+	/**
+	 * @param examVOList
+	 * @return
+	 */
+	private String saveStudentAns(List<ExamVO> examVOList) {
+		int examMarks = 0;
+		for (ExamVO examVO1 : examVOList) {
+			if(StringUtils.equals("Correct", examVO1.getExamResult()))
+			{
+				examMarks++;
+			}
+		}
+		setExamObtainedMarks(String.valueOf(examMarks));
+		SessionHelper.setValueToSession("examObtainedMarks", String.valueOf(examMarks));
+		//Save student answer in DB
+		ExamDAO examDAO = new ExamDAO();
+		String examName = (String) SessionHelper.getValueFromSession("examName");
+		String paperNo = (String) SessionHelper.getValueFromSession("paperNo");
+		String studId = (String) SessionHelper.getValueFromSession("userID");
+		examDAO.setStudExamAns(studId,examVOList,examName,paperNo,getExamObtainedMarks());
+		return "examResultPage";
 	}
 
 	public QuestionVO getQuestionVO() {
@@ -217,6 +230,14 @@ public class ExamBean {
 
 	public void setTimeLeft(String timeLeft) {
 		this.timeLeft = timeLeft;
+	}
+
+	public String getIsExamTimeUp() {
+		return isExamTimeUp;
+	}
+
+	public void setIsExamTimeUp(String isExamTimeUp) {
+		this.isExamTimeUp = isExamTimeUp;
 	}
 
 
