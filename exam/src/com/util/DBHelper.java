@@ -10,7 +10,7 @@ public class DBHelper {
 	private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_exam_db";
     
 	public static Connection getConnection() {
-    	  /*Connection conn = null;
+    	  Connection conn = null;
 		  String userName = "epariksh_test"; 
 		  String password = "test@123";
 			//Connection conn = null;
@@ -23,10 +23,10 @@ public class DBHelper {
 		  } catch (Exception e) {
 		  e.printStackTrace();
 		  }
-		  return conn;*/
-		  Connection conn = null;
+		  return conn;
+		  /*Connection conn = null;
 		  String userName = "root"; 
-		  String password = "";
+		  String password = "root";
 		  try {
 		  Class.forName(JDBC_DRIVER);
 		  conn = DriverManager.getConnection(DB_URL,userName,password);
@@ -34,7 +34,7 @@ public class DBHelper {
 		  } catch (Exception e) {
 		  e.printStackTrace();
 		  }
-		  return conn;
+		  return conn;*/
 	}
 
 }

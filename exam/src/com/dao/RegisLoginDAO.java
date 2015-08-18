@@ -7,9 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.util.DBHelper;
+import com.vo.QuestionVO;
 import com.vo.RegisterVO;
 
 
@@ -90,5 +93,25 @@ public class RegisLoginDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean checkUserRegistered(String userName) {
+		boolean isUserAvailable = true;
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement ps = null;
+		String sqlQuery = "select count(*) from epariksh_exam_db.t_user where username = ?";
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, userName);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				isUserAvailable = false;
+		    }
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return isUserAvailable;
 	}
 }

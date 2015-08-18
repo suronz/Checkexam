@@ -24,15 +24,20 @@ public class RegisterBean {
 	   || (registerVO.getBorad().equals("")) ||  (registerVO.getGurdainName().equals(""))
 	   || (registerVO.getPassword().equals("")) || (registerVO.getPhone().equals("")))
 	{
-		System.out.println("Inside else part");
 		FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_ERROR,"PLEASE FILLUP ALL MANDATORY FIELD", null));
-		clearRegisterVO();	
-	}else
-	{
-		registerVO.setUserName(registerVO.getEmail());
-		regisLoginDao.registerStudent(registerVO);
-	    FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_INFO,"REGISTRATION SUCCESSFULLY", null));
-		actionStr = "register";	
+		//clearRegisterVO();	
+	} else	{
+		boolean isUserAvailable = regisLoginDao.checkUserRegistered(registerVO.getEmail());
+		if(isUserAvailable) {
+			registerVO.setUserName(registerVO.getEmail());
+			regisLoginDao.registerStudent(registerVO);
+		    FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_INFO,"REGISTRATION SUCCESSFULLY", null));
+			actionStr = "register";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_ERROR,"You are already a registered user. If you forgot password please contact with administrator.", null));
+			actionStr = null;
+		}
+			
 	}
 	
 	
