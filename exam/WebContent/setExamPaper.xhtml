@@ -6,7 +6,12 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+	
+	
+	
 <ui:composition template="/WEB-INF/Templates/BasicTemplate.xhtml">
+
+
 	<ui:define name="content">
 		<div id="wrapper">
 			<div id="container">
@@ -180,14 +185,26 @@
 									</h:column>
 								</h:dataTable>
 							</div>
-							<h:commandButton value="Create" class="btn btn-lg btn-primary"
-								action="#{examPaperBean.createExamPaper}"
-								onclick="myFunction();"></h:commandButton>
+							<h:commandButton value="Create" class="btn btn-lg btn-primary" id="createExamId"
+								action="#{examPaperBean.createExamPaper}"></h:commandButton>
 								</div>
 					</h:form>
 				</div>
 			</div>
 		</div>
+		<h:inputHidden id="examPapers" value="#{examPaperBean.availableExamPaperNames}"/>
+		<script type="text/javascript">
+	$( document ).ready(function() {
+		$("#setExamPageId\\:createExamId").click(function(){
+			var examPaperName = $("#setExamPageId\\:examName").val()+$("#setExamPageId\\:paperNo").val();
+			if($("#examPapers").val().contains(examPaperName.toUpperCase())) {
+				alert("THIS EXAM NAME AND PAPER NO IS ALREADY PRESENT. PLEASE PROVIDE ANOTHER EXAM NAME AND PAPER NO");
+				return false;
+			}
+	        return true;
+	    });
+	});
+	</script>
 	</ui:define>
 </ui:composition>
 </html>

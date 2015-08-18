@@ -109,6 +109,30 @@ public class QuestionDAO {
 		return questionVOList;
 	}
 	
+	public List<String> getAllAvailableExamPaperName() {
+		List<String> availableExamNameList = new ArrayList<String>();
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement ps = null;
+		String sqlQuery = "select name,paper_no from epariksh_exam_db.t_exampaper";
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+					String examName;
+		          //Retrieve by column name
+					examName = rs.getString("name");
+					examName = examName + rs.getString("paper_no");
+					
+					availableExamNameList.add(examName.toUpperCase());
+		       }
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return availableExamNameList;
+	}
+	
 	public int insertExamPaper(ExamPaperVO examPaperVO,
 			List<String> examPaperQuesList, String examKey, String userId) {
 		int rowCount = 0;

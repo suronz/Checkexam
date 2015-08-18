@@ -107,38 +107,39 @@
 			<div class="head">
 				<h:graphicImage library="images" name="user.png" url="/resources/images" style= "margin-top: 60%"/>
 			</div>
-			<br />
 			<h:messages  globalOnly="true" infoClass="sucess" errorClass="error" style="margin-left: 10%"></h:messages>
 			<h:form>
-				<label>First Name</label> <h:inputText value="#{registerBean.registerVO.firstName}"/>
-				<label>Last Name</label> <h:inputText value="#{registerBean.registerVO.lastName}"/>
-				<label>Gurdian's Name <span class="text-danger">*</span></label> 
+				<label style="color: blue; font-weight: bold;">The Email-Id will be your User Name.</label> <br/>
+				<label>First Name *</label> 
+				<h:inputText value="#{registerBean.registerVO.firstName}"/>
+				<label>Last Name *</label> 
+				<h:inputText value="#{registerBean.registerVO.lastName}"/>
+				<label>Gurdian's Name *</label> 
 				<h:inputText value="#{registerBean.registerVO.gurdainName}"/>
-				<label>DOB <span class="text-danger">*</span></label> 
+				<label>DOB *</label> 
 				<h:inputText id="registrationDate" styleClass="datepicker" value=" ">
 				</h:inputText>
-				<label>AGE <span class="text-danger">*</span></label>
+				<label>Age *</label>
 				<h:inputText value="#{registerBean.registerVO.age}"/>
-				<label>Address <span class="text-danger">*</span></label> 
+				<label>Address *</label> 
 				<br />
 				<h:inputTextarea value="#{registerBean.registerVO.address}"
-					
 					style="width: 290px; height: 89px; background-color: #d3d3d3; border: 1px solid #ded6d6; border-radius: 5px; margin-bottom: 16px;" />
-				<label>Last Exam Marks <span class="text-danger">*</span></label> 
+				<label>Last Exam Marks *</label> 
 				<h:inputText value="#{registerBean.registerVO.lastExamMarks}"/>
-				<label>Board/University <span class="text-danger">*</span></label> 
+				<label>Board/University *</label> 
 				<h:inputText value="#{registerBean.registerVO.borad}"/>
-				<label>Phone <span class="text-danger">*</span></label> 
+				<label>Phone *</label> 
 				<h:inputText value="#{registerBean.registerVO.phone}"/>
-				<label>Email <span class="text-danger">*</span></label>
+				<label>Email *</label>
 				<h:inputText value="#{registerBean.registerVO.email}"/>
-				<label>Password <span class="text-danger">*</span></label> 
+				<label>Password *</label> 
 				<h:inputSecret value="#{registerBean.registerVO.password}"/>
 				<h:commandButton value="Save" action="#{registerBean.createUser}"/>
 			</h:form>
 			</div>
 
-		<div class="copy-right">
+		<div class="">
 			<center>
 				<p>
 					Copyright &#169; 2015. Powered by <a href="http://w3layouts.com">CometTech

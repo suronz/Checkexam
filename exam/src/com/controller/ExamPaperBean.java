@@ -11,8 +11,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.dao.QuestionDAO;
 import com.util.SessionHelper;
 import com.vo.ExamPaperVO;
@@ -22,26 +20,27 @@ public class ExamPaperBean {
 	private List<QuestionVO> questionVOList = new ArrayList<QuestionVO>();
 	private ExamPaperVO examPaperVO = new ExamPaperVO();
 	public boolean divHide = false;
+	private List<String> availableExamPaperNames = new ArrayList<String>(); 
+	
 	public ExamPaperBean() {
 		populateAllQestion();
 		divHide = false;
+		populateAvailableExamPaperName();
 	}
 
 	private void populateAllQestion() {
 		try {
 			QuestionDAO questionDAO = new QuestionDAO();
 			setQuestionVOList(questionDAO.getAllQuestion());
-
-			for (QuestionVO questionVO : questionVOList) {
-				System.out.println(questionVO.getTopic());
-				System.out.println(questionVO.getQuestion());
-				System.out.println(questionVO.getOption1());
-				System.out.println(questionVO.getOption2());
-				System.out.println(questionVO.getOption3());
-				System.out.println(questionVO.getOption4());
-				System.out.println(questionVO.getAnswer());
-			}
-
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void populateAvailableExamPaperName() {
+		try {
+			QuestionDAO questionDAO = new QuestionDAO();
+			setAvailableExamPaperNames(questionDAO.getAllAvailableExamPaperName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -137,5 +136,13 @@ public class ExamPaperBean {
 
 	public void setDivHide(boolean divHide) {
 		this.divHide = divHide;
+	}
+
+	public List<String> getAvailableExamPaperNames() {
+		return availableExamPaperNames;
+	}
+
+	public void setAvailableExamPaperNames(List<String> availableExamPaperNames) {
+		this.availableExamPaperNames = availableExamPaperNames;
 	}
 }
