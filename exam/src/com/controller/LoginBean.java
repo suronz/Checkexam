@@ -80,4 +80,13 @@ public class LoginBean
 		this.password = password;
 	}
 
+	public RegisLoginDAO getRegisLoginDao() {
+		return regisLoginDao;
+	}
+
+	public void setRegisLoginDao(RegisLoginDAO regisLoginDao) {
+		this.regisLoginDao = regisLoginDao;
+	}
+
+	
 }

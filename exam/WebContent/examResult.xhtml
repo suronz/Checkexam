@@ -7,12 +7,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
+<h:outputScript name="js/jquery-1.3.1.min.js" />
 	<script type="text/javascript">
 	$( document ).ready(function() {
 		setTimeout(function(){
 			$("#loaderId").css( "display", "none" ); 
 			$("#resultId").css( "display", "inline" );
-			}, 5000);
+			}, 3000);
 	});
 	</script>
 	<h:form id="resultForm">

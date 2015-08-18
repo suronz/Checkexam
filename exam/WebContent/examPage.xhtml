@@ -36,7 +36,7 @@
 <div id="wrapper">
 			<div id="container-fluid">
 			
-		<h:form id="examPageId">
+		<h:form id="examPage">
 			<div class="col-md-12" style="padding-top: 5%;padding-bottom: 3%">
 				<div class="col-md-8" style="padding-left: 10%">
 					<h2><h:outputText value="Exam name  - #{examBean.examPaperVO.examName}"></h:outputText></h2>
@@ -44,25 +44,29 @@
 					<h2><h:outputText value="Paper - #{examBean.examPaperVO.paperNo}"></h:outputText></h2>
 					<h2><h:outputText value="Duration - #{examBean.examPaperVO.examDuration} min"></h:outputText></h2>
 					<h:inputHidden id="timeLeftHidden"  value="#{examBean.timeLeft}"></h:inputHidden>
+					<h:inputHidden id="examTimeupHidden"  value="#{examBean.isExamTimeUp}"></h:inputHidden>
 					<br />
 				</div>
 				
 				<div  id="timeSet" class="col-md-4">
-					
-					
-					<script type="text/javascript">
+				<script type="text/javascript">
+					console.log("Duration "+#{examBean.timeLeft});
 					var duration =  #{examBean.timeLeft}*60*1000;
 					var duration_min = new Date().getTime() + duration;
 					  $('#timeSet').countdown(duration_min,{elapse: true})
 					 	.on('update.countdown', function(event) {
 					 		var $this = $(this);
 					 		var timeLeft = event.offset.minutes + event.offset.seconds/60;
-					 		console.log("Minute left "+event.offset.minutes);
-					 		console.log("Second left "+event.offset.seconds);
-					 		 $("#examPageId\\:timeLeftHidden").val(timeLeft);
-					 		//#{examBean.timeLeft} = event.offset.minutes;
-					 		//alert("Time Left:"+event.offset.minutes+"  --  "+$("#examPageId\\:timeLeftHidden").val());
+					 		console.log("time left"+timeLeft);
+					 		 $("#examPage\\:timeLeftHidden").val(timeLeft);
 					 		$this.html(event.strftime('Time left: <span>%H:%M:%S</span>'));
+					 		if(timeLeft === 0)
+					 		{
+					 			alert("Time Up! Your answers will be saved..");
+					 			 $("#examPage\\:examTimeupHidden").val("Y");
+					 			 $("#examPage\\:nextBtn").click();
+					 		}
+					 		
 					    
 					 });
 					</script>
@@ -132,7 +136,8 @@
 										itemLabel="#{examBean.questionVO.option4}" />
 						</h:selectOneRadio>						
 								<h:inputHidden id="quesIdHidden"
-									value="#{examBean.questionVO.questionId}" /> <h:inputHidden
+									value="#{examBean.questionVO.questionId}" />
+									 <h:inputHidden
 									id="buttonNameHidden" value="#{examBean.renderButton}" />
 									
 					</div>
