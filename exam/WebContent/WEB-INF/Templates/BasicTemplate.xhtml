@@ -6,7 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-<head>
+<h:head>
 	<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.css.map"/>
 	<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.css" />
@@ -35,9 +35,12 @@
 					
 		}	
 	  </script> 
-</head>
+	 
+        <title><ui:insert name="title">Admin</ui:insert>
+        </title>  
+</h:head>
 
-<body>
+<h:body>
 <ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>
 	<div id="header">
 	    <ui:insert name="header">
@@ -64,6 +67,6 @@
 	  </ui:insert>
 	</div>
 
-</body>
+</h:body>
 
 </html>
