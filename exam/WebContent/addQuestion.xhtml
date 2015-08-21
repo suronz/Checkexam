@@ -17,8 +17,7 @@
 						<h:messages globalOnly="true" infoClass="sucess"
 							errorClass="error"></h:messages>
 					</div>
-					<h1><span
-						class="glyphicon glyphicon-tags"></span>  Upload Question</h1>
+					<h1><h:graphicImage library="images" name="upload.png" width="50" height="50" />   Upload Question</h1>
 				</div>
 				<h:form class="form-horizontal well">
 					<div class="control-group">
@@ -27,10 +26,19 @@
 							<h:selectOneMenu id="topic"
 								value="#{addQuesBean.questionVO.topic}" class="form-control">
 								<f:selectItem itemLabel="Select One" itemValue="" />
-								<f:selectItem itemLabel="Physical Chemistry" itemValue="Physical Chemistry" />
-								<f:selectItem itemLabel="Organic Chemistry" itemValue="Organic Chemistry" />
-								<f:selectItem itemLabel="Inorganic Chemistry"
-									itemValue="Inorganic Chemistry" />
+								<f:selectItem itemLabel="Apptitude" itemValue="Apptitude" />
+								<f:selectItem itemLabel="English" itemValue="English" />
+								<f:selectItem itemLabel="Reasoning" itemValue="Reasoning" />
+								<f:selectItem itemLabel="General knowledge" itemValue="General knowledge" />
+								<f:selectItem itemLabel="General awareness" itemValue="General awareness" />
+								<f:selectItem itemLabel="Public affairs" itemValue="Public affairs" />
+								<f:selectItem itemLabel="Polity" itemValue="Polity" />
+								<f:selectItem itemLabel="Geography" itemValue="Geography" />
+								<f:selectItem itemLabel="History" itemValue="History" />
+								<f:selectItem itemLabel="Economics" itemValue="Economics" />
+								<f:selectItem itemLabel="General science" itemValue="General science" />
+								<f:selectItem itemLabel="Computer" itemValue="Computer" />
+								
 								<!-- <f:selectItem itemLabel="General Knowledge"
 									itemValue="General Knowledge" /> -->
 							</h:selectOneMenu>

@@ -59,7 +59,7 @@
 					 		var timeLeft = event.offset.minutes + event.offset.seconds/60;
 					 		console.log("time left"+timeLeft);
 					 		 $("#examPage\\:timeLeftHidden").val(timeLeft);
-					 		$this.html(event.strftime('Time left: <span>%H:%M:%S</span>'));
+					 		$this.html(event.strftime('<h1>Time left: <span>%H:%M:%S</span></h1>'));
 					 		if(timeLeft === 0)
 					 		{
 					 			alert("Time Up! Your answers will be saved..");

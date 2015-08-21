@@ -52,8 +52,8 @@ public class RegisLoginDAO {
 		}
 		return result;
 	}
-	
-	
+
+
 	public void registerStudent(RegisterVO registerVO) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
@@ -65,14 +65,14 @@ public class RegisLoginDAO {
 			ps.setString(3, "2");
 			ps.setString(4, "active");
 			ps.executeUpdate();
-			
+
 			ps.close();
-			
+
 			sqlQuery = "INSERT INTO epariksh_exam_db.t_user_profile(user_id,first_name,last_name,gurdain_name,age,gender,"
 					+ "address,last_exam_marks,board,phone,email) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-			
+
 			ps = conn.prepareStatement(sqlQuery);
-			
+
 			ps.setString(1, registerVO.getUserName());
 			ps.setString(2, registerVO.getFirstName());
 			ps.setString(3, registerVO.getLastName());
@@ -85,16 +85,16 @@ public class RegisLoginDAO {
 			ps.setString(10, registerVO.getPhone());
 			ps.setString(11, registerVO.getEmail());
 			ps.executeUpdate();
-			
+
 			ps.close();
 			conn.close();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean checkUserRegistered(String userName) {
 		boolean isUserAvailable = true;
 		Connection conn = DBHelper.getConnection();
@@ -105,8 +105,11 @@ public class RegisLoginDAO {
 			ps.setString(1, userName);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()){
-				isUserAvailable = false;
-		    }
+				int rowCount = rs.getInt(1);
+				System.out.println("Row count "+rowCount);
+				if(rowCount != 0)
+					isUserAvailable = false;
+			}
 			ps.close();
 			conn.close();
 		} catch (SQLException e) {
