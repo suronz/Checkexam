@@ -68,8 +68,8 @@
 										url="/resources/images" />
 								</div>
 								<h:form>
-									<h:inputText value="#{loginBean.name}" onfocus="this.value = '';" /> 
-									<h:inputSecret value="#{loginBean.password}" onfocus="this.value = '';" />
+									<h:inputText value="#{loginBean.name}" p:placeholder="Email id" /> 
+									<h:inputSecret value="#{loginBean.password}" p:placeholder="Password" />
 									
 									<h:commandButton  action="#{loginBean.validateCredential}" value="Login"/>
 									<h:message for="#{LoginBean.name}#{LoginBean.password}" errorClass="error "/>
