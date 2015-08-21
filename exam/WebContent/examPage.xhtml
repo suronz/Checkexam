@@ -39,6 +39,7 @@
 		<h:form id="examPage">
 			<div class="col-md-12" style="padding-bottom: 3%">
 				<div class="alert alert-warning" role="alert"><em>Do not CLICK on Refresh or Back Button during Examination !</em></div>
+				<div class="container" align="left"  style="padding-left: 7%;padding-top: 2%">
 				<div class="row">
 				
 				  <div class="col-sm-8 col-md-6">
@@ -79,39 +80,7 @@
 					</div>
 				        				  
 				</div>  				
-				
-<!-- 				<div class="col-md-8" style="padding-left: 10%">
-					<h2><h:outputText value="Exam name  - #{examBean.examPaperVO.examName}"></h:outputText></h2>
-					<h2><h:outputText value="Batch - #{examBean.examPaperVO.batchCd}"></h:outputText></h2>
-					<h2><h:outputText value="Paper - #{examBean.examPaperVO.paperNo}"></h:outputText></h2>
-					<h2><h:outputText value="Duration - #{examBean.examPaperVO.examDuration} min"></h:outputText></h2>
-
-					<br />
-				</div> -->
-				
-<!-- 				<div  id="timeSet" class="col-md-4">
-				<script type="text/javascript">
-					console.log("Duration "+#{examBean.timeLeft});
-					var duration =  #{examBean.timeLeft}*60*1000;
-					var duration_min = new Date().getTime() + duration;
-					  $('#timeSet').countdown(duration_min,{elapse: true})
-					 	.on('update.countdown', function(event) {
-					 		var $this = $(this);
-					 		var timeLeft = event.offset.minutes + event.offset.seconds/60;
-					 		console.log("time left"+timeLeft);
-					 		 $("#examPage\\:timeLeftHidden").val(timeLeft);
-					 		$this.html(event.strftime('<h1>Time left: <span>%H:%M:%S</span></h1>'));
-					 		if(timeLeft === 0)
-					 		{
-					 			alert("Time Up! Your answers will be saved..");
-					 			 $("#examPage\\:examTimeupHidden").val("Y");
-					 			 $("#examPage\\:nextBtn").click();
-					 		}
-					 		
-					    
-					 });
-					</script>
-				</div> -->
+				</div>
 			</div>
 			
 			<div class="container" align="left"  style="padding-left: 7%;padding-top: 2%">
