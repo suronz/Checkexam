@@ -8,6 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 <h:outputScript name="js/jquery-1.3.1.min.js" />
+<link rel="stylesheet" href="../resources/bootstrap/css/bootstrap.min.css" />
 	<script type="text/javascript">
 	$( document ).ready(function() {
 		setTimeout(function(){
@@ -24,20 +25,30 @@
 				url="/resources/images" />
 		</center>
 		</div>
+		
 		<div id="resultId" style="display: none;">
-			<center>
-				<h1>
-					Exam Result <br />
-					<h:outputLabel
-						value="Result is saved successfully." />
-
-					<br />
-					<br />
-					<h:commandButton value="Return home"
-						action="#{examResultBean.redirectToHome}" />
-				</h1>
-			</center>
+		<div class="container">
+			<div class="jumbotron">
+			  <h2>Examination Completed</h2>
+			  <h3>Result is saved successfully.</h3>
+			  <p>
+			  	<h:commandButton value="Return home" action="#{examResultBean.redirectToHome}" styleClass="btn btn-success btn-lg" />
+			  <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+			  </p>
+			</div>		
 		</div>
+		</div>
+		<br />
+		<br />
+		<div class="copy-right">
+			<center>
+				<p>
+					Copyright 2015. Powered by <a href="http://comettech.co">CometTech
+					Pvt. Ltd.</a>
+				</p>
+			</center>
+		</div>		
+		
 	</h:form>
 </h:head>
 </html>

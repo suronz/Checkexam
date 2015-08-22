@@ -7,6 +7,114 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/WEB-INF/Templates/BasicTemplate.xhtml">
-	prepare for the contact.....
+
+<script src="http://maps.googleapis.com/maps/api/js"> </script>
+
+  <script>
+		function initialize() {
+	    var mapOptions = {
+        zoom: 9,
+        center: new google.maps.LatLng(41.921542, -87.702482),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+	     };
+		  var map = new google.maps.Map(document.getElementById('googleMap'),mapOptions);		 
+	    var marker = new google.maps.Marker({
+        map: map,
+        draggable: false,
+        position: new google.maps.LatLng(41.921542, -87.702482)
+	    });
+		}
+		 
+		google.maps.event.addDomListener(window, 'resize', initialize);
+		google.maps.event.addDomListener(window, 'load', initialize)
+  </script>	
+  <style type="text/css">
+  	#googleMap {
+  		width	:	100px ;
+  		height	:	280px;
+  	}	
+  </style>
+
+	<ui:define name="content">
+		<div id="wrapper">
+			<div id="container-fluid">
+				<br />
+				<div class="page-header">
+					<h1> 
+						Contact Us
+					</h1>
+				</div>
+				
+				<div class="row">
+				
+				  <div class="col-sm-6 col-md-4">
+				    <div class="thumbnail">
+				      <div class="caption">
+				        <h3>Reach us:</h3>
+				        <p>
+				        	When there is any problem with giving exam. You are unable to upload a question. 
+				        	Facing trouble to login with a valid user. Whenever you are not able to perform any action on website.
+				        </p>
+				        <h4>
+				        	We will respond you as soon as possible.
+				        </h4>
+				        
+				      </div>
+				    </div>
+				  </div>
+				
+				  <div class="col-sm-6 col-md-4">
+				    <div class="thumbnail">
+				      <div class="caption">
+				        <h3>General enquires:</h3>
+				       	<h4>
+				       		Phone: <br />  
+				       			(+91) 8336088577 <br />
+								(+91) 9903277662 <br />
+							Email: tamal@comettech.co		
+				       	</h4>
+				       	<hr />
+				        <h3>For technical support:</h3>
+				       	<h4>
+				       		Phone: <br />  
+				       			(+91) 8697007288 <br />
+								(+91) 8697006288 <br />
+							Email: support@comettech.co		
+				       	</h4>       	        
+				        
+				      </div>
+				    </div>
+				  </div>
+				
+				  <div class="col-sm-6 col-md-4">
+				    <div class="thumbnail">
+				      <div id="googleMap"></div>	
+				      <div class="caption">
+				        <h3>Find us at:</h3>
+				        <h4>
+				        	31/B , S M Road, Building 3, 
+							Behala, Kolkata, West Bengal, 
+							India. Pin: 700060.        	
+				        </h4>
+				        
+				      </div>
+				    </div>
+				  </div>
+				
+				
+				
+				</div>				
+				
+			</div>
+		</div>
+		<div class="copy-right">
+			<center>
+				<p>
+					Copyright 2015. Powered by <a href="http://comettech.co">CometTech
+					Pvt. Ltd.</a>
+				</p>
+			</center>
+		</div>		
+	</ui:define>
 </ui:composition>
 </html>

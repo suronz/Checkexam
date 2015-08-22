@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-	<SCRIPT type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></SCRIPT>
 	<h:head>
 		<meta charset="utf-8" />
     	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,19 +17,14 @@
 		<h:outputStylesheet name="bootstrap/css/bootstrap-theme.min.css" />
 		<h:outputStylesheet name="bootstrap/css/style.css" />
 		<h:outputStylesheet name="message.css" library="css"/>
-	 	<h:outputScript name="bootstrap/js/bootstrap.js" />
-	 	
+		<SCRIPT type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></SCRIPT>
+	 	<h:outputScript name="bootstrap/js/bootstrap.js" />	 	
 		<h:outputScript name="bootstrap/js/bootstrap.min.js" />
 		<h:outputScript name="bootstrap/js/npm.js" />
-	<!-- 
-	<h:outputScript name="bootstrap/js/jquery-1.3.1.min.js"/> 
-	<h:outputScript library="bootstrap/js" name="bootstrap.js"/>
-	<h:outputScript library="bootstrap/js" name="bootstrap.min.js"/>
-	<h:outputScript library="bootstrap/js" name="npm.js"/>
-	-->
-
-		<title>login</title>
-	</h:head> 
+	<title>
+		<ui:insert name="title">Pariksha Panel - Login</ui:insert>
+    </title>
+    </h:head> 
 	 <!--  
 	<ui:composition template="/WEB-INF/Templates/BasicTemplate.xhtml">
 		<ui:define name="content">
@@ -67,8 +62,8 @@
 										url="/resources/images" />
 								</div>
 								<h:form>
-									<h:inputText value="#{loginBean.name}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" /> 
-									<h:inputSecret value="#{loginBean.password}" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" />
+									<h:inputText value="#{loginBean.name}" p:placeholder="Email id" /> 
+									<h:inputSecret value="#{loginBean.password}" p:placeholder="Password" />
 									
 									<h:commandButton  action="#{loginBean.validateCredential}" value="Login"/>
 									<h:message for="#{LoginBean.name}#{LoginBean.password}" errorClass="error "/>

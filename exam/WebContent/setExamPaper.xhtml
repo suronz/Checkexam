@@ -26,7 +26,7 @@
 				<div class="row">
 					<h:form id="setExamPageId" class="form-horizontal well">
 						<div class="control-group">
-							<label class="control-label" for="select01">Select Class</label>
+							<label class="control-label" for="select01">Select Class *</label>
 							<div class="controls">
 								<h:selectOneMenu id="class"
 									value="#{examPaperBean.examPaperVO.classCd}"
@@ -41,7 +41,7 @@
 						</div>
 
 						<div class="control-group">
-							<label class="control-label" for="select01">Select Batch</label>
+							<label class="control-label" for="select01">Select Batch *</label>
 							<div class="controls">
 								<h:selectOneMenu id="batch"
 									value="#{examPaperBean.examPaperVO.batchCd}"
@@ -54,19 +54,35 @@
 							</div>
 						</div>
 
-						<div class="control-group">
-							<label class="control-label" for="examName">Exam Name</label>
-							<div class="controls">
-								<h:inputText id="examName" class="form-control input-xlarge"
-									value="#{examPaperBean.examPaperVO.examName}">
-								</h:inputText>
+						<div class="col-md-9">
+							<div class="control-group">
+								<label class="control-label" for="examName">Exam Name *</label>
+								<div class="controls">
+									<h:inputText id="examName" class="form-control input-xlarge"
+										value="#{examPaperBean.examPaperVO.examName}">
+									</h:inputText>
+								</div>
 							</div>
 						</div>
 
 						<div class="col-lg-3">
+							<div class="control-group">
+								<div class='input-group'>
+									<label class="control-label" for="paperNo">Paper No *</label>
+									<div class="controls">
+										<h:inputText id="paperNo" class="form-control"
+											value="#{examPaperBean.examPaperVO.paperNo}" />
+										<span class="input-group-addon"><span
+											class="glyphicon glyphicon-pencil"></span> </span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4">
                             <div class="control-group">
                                 <div class='input-group date'>
-                                    <label class="control-label" for="examDate">Select Date</label>
+                                    <label class="control-label" for="examDate">Select Exam Date *</label>
                                     <div class="controls">
                                         <h:inputText id="examDate"
                                             styleClass="datepicker form-control "
@@ -78,10 +94,10 @@
                             </div>
                         </div>
 
-						<div class="col-lg-3">
+						<div class="col-lg-4">
 							<div class="control-group">
 								<div class='input-group time'>
-									<label class="control-label" for="examTime">Select Time</label>
+									<label class="control-label" for="examTime">Exam Start Time (AM/PM) *</label>
 									<div class="controls">
 										<h:inputText id="examTime" class="form-control"
 											value="#{examPaperBean.examPaperVO.examTime}">
@@ -93,25 +109,10 @@
 							</div>
 						</div>
 
-						<div class="col-lg-3">
-							<div class="control-group">
-								<div class='input-group'>
-									<label class="control-label" for="paperNo">Paper No</label>
-									<div class="controls">
-										<h:inputText id="paperNo" class="form-control"
-											value="#{examPaperBean.examPaperVO.paperNo}" />
-										<span class="input-group-addon"><span
-											class="glyphicon glyphicon-pencil"></span> </span>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-3">
+						<div class="col-lg-4">
 							<div class="control-group">
 								<div class='input-group time'>
-									<label class="control-label" for="examDuration">Exam
-										Duration</label>
+									<label class="control-label" for="examDuration">Exam Duration (in minute)*</label>
 									<div class="controls">
 										<h:inputText id="examDuration" type="time"
 											class="form-control"
@@ -125,72 +126,78 @@
 						</div>
 
 						<div class="control-group">
-								<label class="control-label" for="timeType">Time type:</label>
+								<label class="control-label" for="timeType">Time type: *</label>
 								<div class="controls">
 									<h:selectOneMenu id="timeType"
 										value="#{examPaperBean.examPaperVO.examTimeType}"
 										class="form-control">
 										<f:selectItem itemLabel="Select Time Type" itemValue="" />
-										<f:selectItem itemLabel="Per Question" itemValue="question" />
+										<!-- <f:selectItem itemLabel="Per Question" itemValue="question" /> -->
 										<f:selectItem itemLabel="Total Exam" itemValue="exam" />
 									</h:selectOneMenu>
 								</div>
 							</div>
 
-
-
-
-
-							<h3>Select Questions</h3>
-							<div class="table-responsive"> 
-							<div class="bs-example" data-example-id="hoverable-table">
-								<h:dataTable class="table-responsive"
-									value="#{examPaperBean.questionVOList}" var="question"
-									border="2" id="examTableId">
-									<h:column>
-										<f:facet name="header">Topic</f:facet>
-										<h:outputLabel value="#{question.topic}" />
-									</h:column>
-									<h:column>
-										<f:facet name="header">Question</f:facet>
-										<h:outputLabel value="#{question.question}" />
-									</h:column>
-									<h:column>
-										<f:facet name="header">Option 1</f:facet>
-										<h:outputLabel value="#{question.option1}" />
-									</h:column>
-									<h:column>
-										<f:facet name="header">Option 2</f:facet>
-										<h:outputLabel value="#{question.option2}" />
-									</h:column>
-									<h:column>
-										<f:facet name="header">Option 3</f:facet>
-										<h:outputLabel value="#{question.option3}" />
-									</h:column>
-									<h:column>
-										<f:facet name="header">Option 4</f:facet>
-										<h:outputLabel value="#{question.option4}" />
-									</h:column>
-									<h:column>
-										<f:facet name="header">Answer</f:facet>
-										<h:outputLabel value="#{question.answer}" />
-									</h:column>
-									<h:column>
-										<f:facet name="header">Select</f:facet>
-										<h:selectBooleanCheckbox id="selectQues"
-											styleClass="selectQuesClass" value="#{question.selectedQues}" />
-										<h:outputLabel value="#{question.questionId}"
-											style="display:none;" />
-									</h:column>
-								</h:dataTable>
+						<h3>Select Questions</h3>
+						<div class="table-responsive"> 
+						<div class="bs-example" data-example-id="hoverable-table">
+							<h:dataTable class="table-responsive"
+								value="#{examPaperBean.questionVOList}" var="question"
+								border="2" id="examTableId">
+								<h:column>
+									<f:facet name="header">Topic</f:facet>
+									<h:outputLabel value="#{question.topic}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Question</f:facet>
+									<h:outputLabel value="#{question.question}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Option 1</f:facet>
+									<h:outputLabel value="#{question.option1}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Option 2</f:facet>
+									<h:outputLabel value="#{question.option2}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Option 3</f:facet>
+									<h:outputLabel value="#{question.option3}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Option 4</f:facet>
+									<h:outputLabel value="#{question.option4}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Answer</f:facet>
+									<h:outputLabel value="#{question.answer}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Select</f:facet>
+									<h:selectBooleanCheckbox id="selectQues"
+										styleClass="selectQuesClass" value="#{question.selectedQues}" />
+									<h:outputLabel value="#{question.questionId}"
+										style="display:none;" />
+								</h:column>
+							</h:dataTable>
+						</div>
+						<br /> 
+						<h:commandButton value="Create" class="btn btn-lg btn-primary" id="createExamId"
+							action="#{examPaperBean.createExamPaper}"></h:commandButton>
 							</div>
-							<h:commandButton value="Create" class="btn btn-lg btn-primary" id="createExamId"
-								action="#{examPaperBean.createExamPaper}"></h:commandButton>
-								</div>
 					</h:form>
 				</div>
 			</div>
 		</div>
+		<div class="copy-right">
+			<center>
+				<p>
+					Copyright 2015. Powered by <a href="http://comettech.co">CometTech
+					Pvt. Ltd.</a>
+				</p>
+			</center>
+		</div>		
+		
 		<h:inputHidden id="examPapers" value="#{examPaperBean.availableExamPaperNames}"/>
 		<script type="text/javascript">
 	$( document ).ready(function() {

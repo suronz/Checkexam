@@ -33,98 +33,67 @@
 </h:head>
 
 <h:body>
-<div id="wrapper">
-			<div id="container-fluid">
+	<div id="wrapper">
+		<div id="container-fluid">
 			
 		<h:form id="examPage">
-			<div class="col-md-12" style="padding-top: 5%;padding-bottom: 3%">
-				<div class="col-md-8" style="padding-left: 10%">
-					<h2><h:outputText value="Exam name  - #{examBean.examPaperVO.examName}"></h:outputText></h2>
-					<h2><h:outputText value="Batch - #{examBean.examPaperVO.batchCd}"></h:outputText></h2>
-					<h2><h:outputText value="Paper - #{examBean.examPaperVO.paperNo}"></h:outputText></h2>
-					<h2><h:outputText value="Duration - #{examBean.examPaperVO.examDuration} min"></h:outputText></h2>
-					<h:inputHidden id="timeLeftHidden"  value="#{examBean.timeLeft}"></h:inputHidden>
-					<h:inputHidden id="examTimeupHidden"  value="#{examBean.isExamTimeUp}"></h:inputHidden>
-					<br />
-				</div>
+			<div class="col-md-12" style="padding-bottom: 3%">
+				<div class="alert alert-warning" role="alert"><em>Do not CLICK on Refresh or Back Button during Examination !</em></div>
+				<div class="container" align="left"  style="padding-left: 7%;padding-top: 2%">
+				<div class="row">
 				
-				<div  id="timeSet" class="col-md-4">
-				<script type="text/javascript">
-					console.log("Duration "+#{examBean.timeLeft});
-					var duration =  #{examBean.timeLeft}*60*1000;
-					var duration_min = new Date().getTime() + duration;
-					  $('#timeSet').countdown(duration_min,{elapse: true})
-					 	.on('update.countdown', function(event) {
-					 		var $this = $(this);
-					 		var timeLeft = event.offset.minutes + event.offset.seconds/60;
-					 		console.log("time left"+timeLeft);
-					 		 $("#examPage\\:timeLeftHidden").val(timeLeft);
-					 		$this.html(event.strftime('<h1>Time left: <span>%H:%M:%S</span></h1>'));
-					 		if(timeLeft === 0)
-					 		{
-					 			alert("Time Up! Your answers will be saved..");
-					 			 $("#examPage\\:examTimeupHidden").val("Y");
-					 			 $("#examPage\\:nextBtn").click();
-					 		}
-					 		
-					    
-					 });
-					</script>
-					<!--  <script type="text/javascript">
-						var duration = #{examBean.timeLeft} ;
-						var myCountdown = new Countdown({
-								time : duration,
-								width : 150,
-								height : 80,
-								rangeHi : "minute",
-								numbers : {
-									font : "Arial",
-									color : "#FFFFFF",
-									bkgd : "#365D8B",
-									fontSize : 200,
-									rounded : 0.15, // percentage of size 
-								},
-
-								labels : {
-									textScale : 0.8,
-									offset : 5
-								},
-								onEnd: function() {
-							    	//console.log('Happy New Year!');
-									alert("you clicked"+ myCountdown.e._lastTime);
-							    }
-
-							});
-						function setTimer(){
-							
-							alert("you clicked");
-							//console.log("Inside set timer");
-							//return true;
-							//+ myCountdown.time)
-							//document.getElementById('timeLeftHidden').value = myCountdown.time;
-									
-						   }
-						
-					   /*$( document ).ready(function() {
-					    	//duration = #{examBean.examPaperVO.examDuration};
-					        //console.log( duration );
-					       // setTimer();
-					    }); */
-					</script>-->
+				  <div class="col-sm-8 col-md-6">
+				    <div class="thumbnail">
+				      <div class="caption">
+				        <h4><h:outputText value="Exam name  - #{examBean.examPaperVO.examName}"></h:outputText></h4>
+				        <h4><h:outputText value="Batch - #{examBean.examPaperVO.batchCd}"></h:outputText></h4>
+				        <h4><h:outputText value="Paper - #{examBean.examPaperVO.paperNo}"></h:outputText></h4>
+				        <h4><h:outputText value="Duration - #{examBean.examPaperVO.examDuration} minute"></h:outputText></h4>
+						<h:inputHidden id="timeLeftHidden"  value="#{examBean.timeLeft}"></h:inputHidden>
+						<h:inputHidden id="examTimeupHidden"  value="#{examBean.isExamTimeUp}"></h:inputHidden>
+				      </div>
+				    </div>
+				  </div>
+				
+					<div  id="timeSet" class="col-md-4">
+					<script type="text/javascript">
+						// console.log("Duration "+#{examBean.timeLeft});
+						var duration =  #{examBean.timeLeft}*60*1000;
+						var duration_min = new Date().getTime() + duration;
+						  $('#timeSet').countdown(duration_min,{elapse: true})
+						 	.on('update.countdown', function(event) {
+						 		var $this = $(this);
+						 		var timeLeft = event.offset.minutes + event.offset.seconds/60;
+						 		console.log("time left"+timeLeft);
+						 		 $("#examPage\\:timeLeftHidden").val(timeLeft);
+						 		$this.html(event.strftime('<h2>Time left: <span>%H:%M:%S</span></h2>'));
+						 		if(timeLeft === 0)
+						 		{
+						 			alert("Time Up! Your answers will be saved..");
+						 			 $("#examPage\\:examTimeupHidden").val("Y");
+						 			 $("#examPage\\:nextBtn").click();
+						 		}
+						 		
+						    
+						 });
+						</script>
+					</div>
+				        				  
+				</div>  				
 				</div>
 			</div>
 			
-			<div class="container" align="left"  style="padding-left: 7%;padding-top: 20%">
+			<div class="container" align="left"  style="padding-left: 7%;padding-top: 2%">
 			  <!--  <div style="border: 2px solid #8AC007;padding-left: 5%;padding-bottom: 5%;">-->
 			 <div class="rounded_border"> 
 					<div>
-							<h1><h:outputLabel value="Question : "/></h1>
-							<h2><h:outputLabel value="#{examBean.questionVO.question}" /></h2>
+							<h3><h:outputLabel value="Question : "/></h3>
+							<h4><h:outputLabel value="#{examBean.questionVO.question}" /></h4>
 					</div>
 					<div>
-						<h1><h:outputLabel value="Options : "/></h1>
+						<h3><h:outputLabel value="Options : "/></h3>
 						<h:selectOneRadio
-									value="#{examBean.examAns}" style="font-size:200%;" 
+									value="#{examBean.examAns}" style="font-size:100%;" 
 									layout="pageDirection">
 									<f:selectItem itemValue="Option 1"
 										itemLabel="#{examBean.questionVO.option1}"/>
@@ -155,5 +124,14 @@
 	</h:form>
 	</div>
 	</div>
+	<br />
+	<div class="copy-right">
+		<center>
+			<p>
+				Copyright 2015. Powered by <a href="http://comettech.co">CometTech
+				Pvt. Ltd.</a>
+			</p>
+		</center>
+	</div>	
 </h:body>
 </html>
