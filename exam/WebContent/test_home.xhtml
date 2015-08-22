@@ -4,24 +4,25 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-<SCRIPT type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"/>
+<SCRIPT type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" />
 <h:head>
 	<meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
-	<h:outputStylesheet name="bootstrap/css/bootstrap.css.map" /> 
+	<h:outputStylesheet name="bootstrap/css/bootstrap.css.map" />
 	<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
 	<h:outputStylesheet name="bootstrap/css/bootstrap-theme.css" />
 	<h:outputStylesheet name="bootstrap/css/bootstrap-theme.css.map" />
 	<h:outputStylesheet name="bootstrap/css/bootstrap-theme.min.css" />
-	<h:outputStylesheet name="home.css" library = "css"/>
-	<h:outputStylesheet name="bootstrap/css/style.css"/>
+	<h:outputStylesheet name="home.css" library="css" />
+	<h:outputStylesheet name="bootstrap/css/style.css" />
 	<link rel="stylesheet" href="../resources/css/simple-sidebar.css" />
-	 <h:outputScript name="bootstrap/js/bootstrap.js"/>
-	<h:outputScript name="bootstrap/js/bootstrap.min.js"/>
-	<h:outputScript name="bootstrap/js/npm.js"/>
+	<h:outputScript name="bootstrap/js/bootstrap.js" />
+	<h:outputScript name="bootstrap/js/bootstrap.min.js" />
+	<h:outputScript name="bootstrap/js/npm.js" />
 	<!-- 
 	<h:outputScript name="bootstrap/js/jquery-1.3.1.min.js"/>
 	<h:outputScript library="bootstrap/js" name="bootstrap.js"/>
@@ -29,43 +30,79 @@
 	<h:outputScript library="bootstrap/js" name="npm.js"/>
 	-->
 	<title>Home</title>
-	  <style>
-  .carousel-inner > .item > img,
-  .carousel-inner > .item > a > img {
-    min-width: 100%;
-    height: 550px;
- }	
-  </style> 
+	<style>
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+	min-width: 100%;
+	height: 550px;
+}
+</style>
 </h:head>
 <h:body>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-      <div class="item active">
-        <h:graphicImage name="edu5.jpg" library="images" />
-      </div>
-      <div class="item">
-        <h:graphicImage name="edu6.jpg" library="images"/>
-      </div>
-      <div class="item">
-       <h:graphicImage name="edu7.jpg" library="images" />
-      </div>
-    </div>
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+		<!-- Wrapper for slides -->
+		<div class="carousel-inner" role="listbox">
+			<div class="item active">
+				<h:graphicImage name="edu5.jpg" library="images" />
+			</div>
+			<div class="item">
+				<h:graphicImage name="edu6.jpg" library="images" />
+			</div>
+			<div class="item">
+				<h:graphicImage name="edu7.jpg" library="images" />
+			</div>
+		</div>
+		<!-- Left and right controls -->
+		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a> <a class="right carousel-control" href="#myCarousel"
+			data-slide="next"> <span
+			class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+			<div class="col-sm-4">
+				
+				<ul>
+					<FONT color="#000000">
+						<li><span> Secure and Private </span></li>
+						<li><span>Easy to define test settings </span></li>
+						<li><span>No software installations required</span></li>
+						<li><span>Custom certificates and exam branding </span></li>
+						<li><span> Give exams with public and private options
+						</span></li>
+						<li><span>PCs, Macs, iPad, iPhone, Android, Chromebook
+								more </span></li>
+					</FONT>
+				</ul>
+			</div>
+	
+
+
+	<footer id="footer1" class="midnight-blue" style="margin-top: 250px">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					© 2015 <a title="CometTech HTML templates"
+						href="http://comettech.co/" target="_blank">CometTech</a> . All
+					rights reserved.
+				</div>
+				<div class="col-sm-6">
+					<ul class="pull-right">
+						<li><a href="#">Home</a></li>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Faq</a></li>
+						<li><a href="#">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
 </h:body>
 </html>
