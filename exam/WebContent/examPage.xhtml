@@ -63,7 +63,9 @@
 						  $('#timeSet').countdown(duration_min,{elapse: true})
 						 	.on('update.countdown', function(event) {
 						 		var $this = $(this);
-						 		var timeLeft = event.offset.minutes + event.offset.seconds/60;
+						 		var timeLeft = event.offset.hours*60 + 
+						 		event.offset.minutes + event.offset.seconds/60 ;
+						 						
 						 		console.log("time left"+timeLeft);
 						 		 $("#examPage\\:timeLeftHidden").val(timeLeft);
 						 		$this.html(event.strftime('<h2>Time left: <span>%H:%M:%S</span></h2>'));

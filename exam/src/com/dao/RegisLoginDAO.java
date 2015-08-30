@@ -21,7 +21,7 @@ public class RegisLoginDAO {
 		String result = null;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sql = "select * from epariksh_exam_db.t_user where username=? and password=?";
+		String sql = "select * from "+DBHelper.DB_NAME+"t_user where username=? and password=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			System.out.println("Prepared statement executed");
@@ -57,7 +57,7 @@ public class RegisLoginDAO {
 	public void registerStudent(RegisterVO registerVO) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "INSERT INTO epariksh_exam_db.t_user(username,password,created_at,updated_at,type_id,status) VALUES (?,?,current_timestamp(),current_timestamp(),?,?)";
+		String sqlQuery = "INSERT INTO "+DBHelper.DB_NAME+"t_user(username,password,created_at,updated_at,type_id,status) VALUES (?,?,current_timestamp(),current_timestamp(),?,?)";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, registerVO.getUserName());
@@ -68,7 +68,7 @@ public class RegisLoginDAO {
 
 			ps.close();
 
-			sqlQuery = "INSERT INTO epariksh_exam_db.t_user_profile(user_id,first_name,last_name,gurdain_name,age,gender,"
+			sqlQuery = "INSERT INTO "+DBHelper.DB_NAME+"t_user_profile(user_id,first_name,last_name,gurdain_name,age,gender,"
 					+ "address,last_exam_marks,board,phone,email) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 			ps = conn.prepareStatement(sqlQuery);
@@ -99,7 +99,7 @@ public class RegisLoginDAO {
 		boolean isUserAvailable = true;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "select count(*) from epariksh_exam_db.t_user where username = ?";
+		String sqlQuery = "select count(*) from "+DBHelper.DB_NAME+"t_user where username = ?";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, userName);

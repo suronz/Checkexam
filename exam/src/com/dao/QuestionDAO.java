@@ -24,7 +24,7 @@ public class QuestionDAO {
 		int rowCount = 0;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "INSERT INTO epariksh_exam_db.t_question (question_type, question_desc, option_1, option_2, option_3, option_4, answer) "
+		String sqlQuery = "INSERT INTO "+DBHelper.DB_NAME+"t_question (question_type, question_desc, option_1, option_2, option_3, option_4, answer) "
 				+ "VALUES (?,?,?,?,?,?,?)";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
@@ -83,7 +83,7 @@ public class QuestionDAO {
 		List<QuestionVO> questionVOList= new ArrayList<QuestionVO>();
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "select * from epariksh_exam_db.t_question order by question_type";
+		String sqlQuery = "select * from "+DBHelper.DB_NAME+"t_question order by question_type";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			ResultSet rs = ps.executeQuery();
@@ -113,7 +113,7 @@ public class QuestionDAO {
 		List<String> availableExamNameList = new ArrayList<String>();
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "select name,paper_no from epariksh_exam_db.t_exampaper";
+		String sqlQuery = "select name,paper_no from "+DBHelper.DB_NAME+"t_exampaper";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			ResultSet rs = ps.executeQuery();
@@ -138,7 +138,7 @@ public class QuestionDAO {
 		int rowCount = 0;
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "INSERT INTO epariksh_exam_db.t_exampaper (name, paper_no, class, batch, start_date, start_time, time_type, exam_time, crtn_tms, exam_paper_key, created_by) "
+		String sqlQuery = "INSERT INTO "+DBHelper.DB_NAME+"t_exampaper (name, paper_no, class, batch, start_date, start_time, time_type, exam_time, crtn_tms, exam_paper_key, created_by) "
 				+ "VALUES (?,?,?,?,?,?,?,?,current_timestamp(),?,?)";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
@@ -157,7 +157,7 @@ public class QuestionDAO {
 			rowCount = ps.executeUpdate();
 			ps.close();
 			
-			sqlQuery = "INSERT INTO epariksh_exam_db.t_exam_paper_ques_list (name,paper_no,question_id) values (?,?,?)";
+			sqlQuery = "INSERT INTO "+DBHelper.DB_NAME+"t_exam_paper_ques_list (name,paper_no,question_id) values (?,?,?)";
 			ps = conn.prepareStatement(sqlQuery);
 			
 			for (String questionId : examPaperQuesList) {
@@ -179,8 +179,8 @@ public class QuestionDAO {
 		List<QuestionVO> questionVOList= new ArrayList<QuestionVO>();
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "select * from epariksh_exam_db.t_question where question_id "
-				+ "in (select question_id from epariksh_exam_db.t_exam_paper_ques_list where name = ? and paper_no = ?)";
+		String sqlQuery = "select * from "+DBHelper.DB_NAME+"t_question where question_id "
+				+ "in (select question_id from "+DBHelper.DB_NAME+"t_exam_paper_ques_list where name = ? and paper_no = ?)";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, examName);
