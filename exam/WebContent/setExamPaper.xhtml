@@ -11,10 +11,31 @@
 	
 <ui:composition template="/WEB-INF/Templates/BasicTemplate.xhtml">
 
+		
 
 	<ui:define name="content">
 		<div id="wrapper">
 			<div id="container">
+			<script type="text/javascript">
+		$(function() {
+			alert("Inside Dialog");
+		    $( "#viewParaQuesHdnId" ).dialog({
+		      autoOpen: false,
+		      show: {
+		        effect: "blind",
+		        duration: 1000
+		      },
+		      hide: {
+		        effect: "explode",
+		        duration: 1000
+		      }
+		    });
+		 
+		    $( ".viewParaPanelClass" ).click(function() {
+		      $( "#viewParaQuesHdnId" ).dialog( "open" );
+		    });
+		  });
+		</script>
 				<br />
 				<div class="page-header">
 					<div class="form-horizontal well" style="display:#{(examPaperBean.divHide)?'block':'none'}">
@@ -23,6 +44,7 @@
 					</div>
 					<h1> <h:graphicImage library="images" name="create_paper.png" width="60" height="60" />   Create Exam Paper</h1>
 				</div>
+				
 				<div class="row">
 					<h:form id="setExamPageId" class="form-horizontal well">
 						<div class="control-group">
@@ -146,13 +168,19 @@
 									</h:selectOneMenu>
 								</div>
 							</div>
-
+						<br />
+						<span class="btn btn-primary btn-sm" id="singleQuesBtnId">Single Question</span>
+						&nbsp;
+						<span class="btn btn-primary btn-sm" id="paraQuesBtnId">Paragraph Question</span>
+						<br />
 						<h3>Select Questions</h3>
 						<div class="table-responsive"> 
-						<div class="bs-example" data-example-id="hoverable-table">
+						<div class="bs-example" id="singleQuesDivId" style="display: inline;">
 							<h:dataTable class="table-responsive"
-								value="#{examPaperBean.questionVOList}" var="question"
-								border="2" id="examTableId">
+								value="#{examPaperBean.singleQuestionVOList}" var="question"
+								border="2" id="singleQuesTableId" columnClasses="singleTableTopicCol, singleTableQuesCol,
+								singleTableOptionCol, singleTableOptionCol, singleTableOptionCol, singleTableOptionCol, singleTableOptionCol,
+								singleTableAnsCol, singleTableSelectCol">
 								<h:column>
 									<f:facet name="header">Topic</f:facet>
 									<h:outputLabel value="#{question.topic}" />
@@ -178,14 +206,48 @@
 									<h:outputLabel value="#{question.option4}" />
 								</h:column>
 								<h:column>
+									<f:facet name="header">Option 5</f:facet>
+									<h:outputLabel value="#{question.option5}" />
+								</h:column>
+								<h:column>
 									<f:facet name="header">Answer</f:facet>
 									<h:outputLabel value="#{question.answer}" />
 								</h:column>
 								<h:column>
 									<f:facet name="header">Select</f:facet>
-									<h:selectBooleanCheckbox id="selectQues"
-										styleClass="selectQuesClass" value="#{question.selectedQues}" />
-									<h:outputLabel value="#{question.questionId}"
+									<h:selectBooleanCheckbox id="selectSingleQues"
+										styleClass="selectQuesClass" value="#{question.selectedSingleQues}" />
+									<h:outputLabel value="#{question.questionId}" id="singleQuesId"
+										style="display:none;" />
+								</h:column>
+							</h:dataTable>
+						</div>
+						
+						<div class="bs-example" id="paraQuesDivId" style="display: none;">
+							<h:dataTable class="table-responsive"
+								value="#{examPaperBean.paraQuestionVOList}" var="question"
+								border="2" id="paraQuesTableId" columnClasses="paraTableColMid, paraTableColLarge, paraTableColSmall">
+								<h:column>
+									<f:facet name="header">Topic</f:facet>
+									<h:outputLabel value="#{question.topic}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Title</f:facet>
+									<PRE style="border: 0;"><h:outputLabel value="#{question.quesTitle}" style="width : 97%;"/></PRE>
+									<h:panelGroup id="viewParaPanelId" class="viewParaPanelClass">
+									<h:graphicImage library="images" name="upload.png" width="30"
+									height="30" alt="View Paragraph" title="View Paragraph" id="viewParaId">
+									</h:graphicImage>
+									</h:panelGroup>
+									<h:panelGroup id="paraModalDivId" style="display: inline;">
+										<h:outputLabel value="#{examPaperBean.quesParagraph}"/>
+									</h:panelGroup>
+								</h:column>
+								<h:column>
+									<f:facet name="header">Select</f:facet>
+									<h:selectBooleanCheckbox id="selectParaQues"
+										styleClass="selectQuesClass" value="#{question.selectedParaQues}" />
+									<h:outputLabel value="#{question.questionId}" id="paraQuesId"
 										style="display:none;" />
 								</h:column>
 							</h:dataTable>
@@ -208,6 +270,11 @@
 		</div>		
 		
 		<h:inputHidden id="examPapers" value="#{examPaperBean.availableExamPaperNames}"/>
+		<!-- <h:inputHidden id="viewParaQuesHdnId" value="AAAAAAAAAAAAAAAAAAA"/> -->
+		<div id="viewParaQuesHdnId" title="Basic dialog">
+  			<p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+		</div>
+		
 		<script type="text/javascript">
 	$( document ).ready(function() {
 		$("#setExamPageId\\:createExamId").click(function(){

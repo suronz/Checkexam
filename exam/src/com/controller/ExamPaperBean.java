@@ -7,9 +7,11 @@ package com.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import com.dao.QuestionDAO;
 import com.util.SessionHelper;
@@ -17,10 +19,13 @@ import com.vo.ExamPaperVO;
 import com.vo.QuestionVO;
 
 public class ExamPaperBean {
-	private List<QuestionVO> questionVOList = new ArrayList<QuestionVO>();
+	private List<QuestionVO> singleQuestionVOList = new ArrayList<QuestionVO>();
+	private List<QuestionVO> paraQuestionVOList = new ArrayList<QuestionVO>();
 	private ExamPaperVO examPaperVO = new ExamPaperVO();
 	public boolean divHide = false;
 	private List<String> availableExamPaperNames = new ArrayList<String>(); 
+	private String quesParagraph = null;
+	private String viewParaQuesId = null;
 	
 	public ExamPaperBean() {
 		populateAllQestion();
@@ -31,7 +36,16 @@ public class ExamPaperBean {
 	private void populateAllQestion() {
 		try {
 			QuestionDAO questionDAO = new QuestionDAO();
-			setQuestionVOList(questionDAO.getAllQuestion());
+			List<List<QuestionVO>> allQuestionList = questionDAO.getAllQuestion();
+			if(allQuestionList != null){
+				if(allQuestionList.size()>0){
+					singleQuestionVOList = allQuestionList.get(0);
+				}
+				if(allQuestionList.size()>1){
+					paraQuestionVOList = allQuestionList.get(1);
+				}
+			}
+			//setQuestionVOList(questionDAO.getAllQuestion());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,7 +66,8 @@ public class ExamPaperBean {
 
 			QuestionDAO questionDAO = new QuestionDAO();
 			ExamPaperVO examPaperVO = getExamPaperVO();
-			List<QuestionVO> examPaperVOList = getQuestionVOList();
+			List<QuestionVO> examPaperSingleVOList = getSingleQuestionVOList();
+			List<QuestionVO> examPaperParaVOList = getParaQuestionVOList(); 
 
 			if((examPaperVO.getBatchCd().equals("")) || (examPaperVO.getClassCd().equals("")) || 
 					(examPaperVO.getExamDate().equals("")) || (examPaperVO.getExamDuration().equals("")) 
@@ -65,8 +80,17 @@ public class ExamPaperBean {
 			{
 				//  FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_INFO,"QUESTION PAPER SUCESSESFULLY CREATED", null));
 				List<String> questionList = new ArrayList<String>();
-				for (QuestionVO questionVO : examPaperVOList) {
-					if(questionVO.isSelectedQues())
+				for (QuestionVO questionVO : examPaperSingleVOList) {
+					if(questionVO.isSelectedSingleQues())
+					{
+						System.out.println(questionVO.getQuestion());
+						System.out.println(questionVO.getQuestionId());
+						questionList.add(questionVO.getQuestionId());
+					}
+				}
+				
+				for (QuestionVO questionVO : examPaperParaVOList) {
+					if(questionVO.isSelectedParaQues())
 					{
 						System.out.println(questionVO.getQuestion());
 						System.out.println(questionVO.getQuestionId());
@@ -105,22 +129,29 @@ public class ExamPaperBean {
 		this.examPaperVO.setPaperNo("");
 		this.examPaperVO.setExamPaperLinkVal("");
 		//this.setDisableCheckBox(true);
-		List<QuestionVO> examPaperVOList = getQuestionVOList();
+		List<QuestionVO> examPaperVOList = getSingleQuestionVOList();
 		for(QuestionVO questionvo : examPaperVOList)
 		{
-			if(questionvo.isSelectedQues())
-				questionvo.setSelectedQues(false);
+			if(questionvo.isSelectedSingleQues())
+				questionvo.setSelectedSingleQues(false);
+		}
+		
+		examPaperVOList = getParaQuestionVOList();
+		for(QuestionVO questionvo : examPaperVOList)
+		{
+			if(questionvo.isSelectedParaQues())
+				questionvo.setSelectedParaQues(false);
 		}
 		
 	}
-
-	public List<QuestionVO> getQuestionVOList() {
-		return questionVOList;
-	}
-
-	public void setQuestionVOList(List<QuestionVO> questionVOList) {
-		this.questionVOList = questionVOList;
-	}
+	
+/*	public void showParagraph(AjaxBehaviorEvent event) {
+		System.out.println("Successful Ajax Call........");
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String action = params.get("paraQuestionId");
+		event.getComponent().getAttributes().get("paraQuestionId");
+		quesParagraph = action;
+	}*/
 
 	public ExamPaperVO getExamPaperVO() {
 		return examPaperVO;
@@ -144,5 +175,37 @@ public class ExamPaperBean {
 
 	public void setAvailableExamPaperNames(List<String> availableExamPaperNames) {
 		this.availableExamPaperNames = availableExamPaperNames;
+	}
+
+	public List<QuestionVO> getSingleQuestionVOList() {
+		return singleQuestionVOList;
+	}
+
+	public void setSingleQuestionVOList(List<QuestionVO> singleQuestionVOList) {
+		this.singleQuestionVOList = singleQuestionVOList;
+	}
+
+	public List<QuestionVO> getParaQuestionVOList() {
+		return paraQuestionVOList;
+	}
+
+	public void setParaQuestionVOList(List<QuestionVO> paraQuestionVOList) {
+		this.paraQuestionVOList = paraQuestionVOList;
+	}
+
+	public String getQuesParagraph() {
+		return quesParagraph;
+	}
+
+	public void setQuesParagraph(String quesParagraph) {
+		this.quesParagraph = quesParagraph;
+	}
+
+	public String getViewParaQuesId() {
+		return viewParaQuesId;
+	}
+
+	public void setViewParaQuesId(String viewParaQuesId) {
+		this.viewParaQuesId = viewParaQuesId;
 	}
 }
