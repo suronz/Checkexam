@@ -8,5 +8,8 @@ public class ExamConstants {
 	public final static String PARA_OPTION4_SEPARATOR = "nextOption4";
 	public final static String PARA_OPTION5_SEPARATOR = "nextOption5";
 	public final static String PARA_ANS_SEPARATOR = "nextAns";
+	public final static String QUES_TYPE_SINGLE = "Single";
+	public final static String QUES_TYPE_PARA = "Paragraph";
+	public final static String DOT_SYMBOL = ".";
 
 }
