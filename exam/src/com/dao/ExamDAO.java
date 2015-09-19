@@ -10,7 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.util.DBHelper;
+import com.util.ExamConstants;
 import com.vo.ExamPaperVO;
 import com.vo.ExamVO;
 import com.vo.QuestionVO;
@@ -215,17 +218,25 @@ public class ExamDAO {
 	public void setStudExamAns(String studId, List<ExamVO> examVOList, String examName, String paperNo, String totalMarks) {
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
-		String sqlQuery = "INSERT INTO "+DBHelper.DB_NAME+"t_stud_exam_ans (stud_id,exam_name,paper_no,question_id,stud_ans,stud_ans_status) values (?,?,?,?,?,?)";
+		String sqlQuery = "INSERT INTO "+DBHelper.DB_NAME+"t_stud_exam_ans (stud_id,exam_name,paper_no,question_id,sub_question_id,stud_ans,stud_ans_status) values (?,?,?,?,?,?,?)";
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			
 			for (ExamVO examVO : examVOList) {
+				String quesId = examVO.getQuesId();
+				String subQuesId = "";
+				if(StringUtils.contains(quesId, ExamConstants.DOT_SYMBOL)){
+					String[] quesIdArr = quesId.split("\\.");
+					quesId = quesIdArr[0];
+					subQuesId = quesIdArr[1];
+				}
 				ps.setString(1, studId);
 				ps.setString(2, examName);
 				ps.setString(3, paperNo);
-				ps.setString(4, examVO.getQuesId());
-				ps.setString(5, examVO.getExamAns());
-				ps.setString(6, examVO.getExamResult());
+				ps.setString(4, quesId);
+				ps.setString(5, subQuesId);
+				ps.setString(6, examVO.getExamAns());
+				ps.setString(7, examVO.getExamResult());
 				ps.addBatch();
 			}
 			ps.executeBatch();
