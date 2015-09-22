@@ -7,6 +7,10 @@ $(document).ready(function() {
 	var paraOption5Separator = "nextOption5";
 	var paraAnsSeparator = "nextAns";
 	
+	$(function() {
+	    $( ".datepicker" ).datepicker();
+	  });
+	
 	$("#paraBtnId").click(function() {
 		$("#addQuestionFormId\\:quesCatHidden").val("Paragraph");
 		$("#paraDivId").css("display","inline");

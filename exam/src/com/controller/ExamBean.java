@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.dao.ExamDAO;
 import com.dao.QuestionDAO;
+import com.util.ExamConstants;
 import com.util.SessionHelper;
 import com.vo.ExamPaperVO;
 import com.vo.ExamVO;
@@ -32,6 +33,8 @@ public class ExamBean {
 	private String examObtainedMarks;
 	private ExamPaperVO examPaperVO = new ExamPaperVO();
 	private String isExamTimeUp = null;
+	private String examQuesPara = null;
+	private String quesParaStyle = null;
 
 	public ExamBean() {
 		String isPopulate = String.valueOf(SessionHelper.getValueFromSession("isPopulate"));
@@ -60,7 +63,19 @@ public class ExamBean {
 			SessionHelper.setValueToSession("EXAMINFO", examPaperVO);
 			SessionHelper.setValueToSession("examQuestionList", examQuestionList);
 			//setQuestionVOList(examQuestionList);
-			setQuestionVO(examQuestionList.get(0));
+			QuestionVO firstQuestionVO = examQuestionList.get(0);
+			if(ExamConstants.QUES_TYPE_SINGLE.equals(firstQuestionVO.getQuestionCategory())){
+				setExamQuesPara("");
+				setQuestionVO(firstQuestionVO);
+				setQuesParaStyle("display : none;");
+				SessionHelper.setValueToSession("quesSeqNo", 0);
+			} else if (ExamConstants.QUES_TYPE_PARA.equals(firstQuestionVO.getQuestionCategory())){
+				setExamQuesPara(firstQuestionVO.getQuestion());
+				setQuestionVO(examQuestionList.get(1));
+				setQuesParaStyle("display : inline;");
+				SessionHelper.setValueToSession("quesSeqNo", 1);
+			}
+			
 			//setPopulate(false);
 
 			
@@ -197,17 +212,35 @@ public class ExamBean {
 			examVO.setExamResult("Wrong");
 		}
 		examVOList = (List<ExamVO>) SessionHelper.getValueFromSession("examVOList");
-		examVOList.add(quesSeq, examVO);
+		examVOList.add(examVO);
 		SessionHelper.removeValueFromSession("examVOList");
 		SessionHelper.setValueToSession("examVOList", examVOList);
-
+		
 		quesSeq++;
-		SessionHelper.setValueToSession("quesSeqNo", quesSeq);
+		
 		//setQuesSeqNo(quesSeq);
 
 		if (questionVOList.size() > quesSeq) {
-			setQuestionVO(questionVOList.get(quesSeq));
+			if(ExamConstants.QUES_TYPE_PARA.equals(questionVOList.get(quesSeq).getQuestionCategory())){
+				setExamQuesPara(questionVOList.get(quesSeq).getQuestion());
+				SessionHelper.setValueToSession("examQuesPara", getExamQuesPara());
+				quesSeq++;
+				setQuestionVO(questionVOList.get(quesSeq));
+				setQuesParaStyle("display : inline;");
+			} else if(ExamConstants.QUES_TYPE_SINGLE.equals(questionVOList.get(quesSeq).getQuestionCategory())){
+				setExamQuesPara("");
+				setQuestionVO(questionVOList.get(quesSeq));
+				setQuesParaStyle("display : none;");
+			} else {
+				String quesPara = (String) SessionHelper.getValueFromSession("examQuesPara");
+				setExamQuesPara(quesPara);
+				setQuestionVO(questionVOList.get(quesSeq));
+				setQuesParaStyle("display : inline;");
+			}
 		}
+		
+		
+		SessionHelper.setValueToSession("quesSeqNo", quesSeq);
 		setExamAns(null);
 		for (ExamVO examVO1 : examVOList) {
 			System.out.println("Ques Id: " + examVO1.getQuesId());
@@ -313,6 +346,22 @@ public class ExamBean {
 
 	public void setIsExamTimeUp(String isExamTimeUp) {
 		this.isExamTimeUp = isExamTimeUp;
+	}
+
+	public String getExamQuesPara() {
+		return examQuesPara;
+	}
+
+	public void setExamQuesPara(String examQuesPara) {
+		this.examQuesPara = examQuesPara;
+	}
+
+	public String getQuesParaStyle() {
+		return quesParaStyle;
+	}
+
+	public void setQuesParaStyle(String quesParaStyle) {
+		this.quesParaStyle = quesParaStyle;
 	}
 
 

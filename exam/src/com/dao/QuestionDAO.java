@@ -13,6 +13,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import com.util.DBHelper;
+import com.util.ExamConstants;
 import com.vo.ExamPaperVO;
 import com.vo.QuestionVO;
 
@@ -237,19 +238,33 @@ public class QuestionDAO {
 			ps.setString(1, examName);
 			ps.setString(2, paperNo);
 			ResultSet rs = ps.executeQuery();
+			String quesCategory = null;
 			while(rs.next()){
 					QuestionVO questionVO = new QuestionVO();
-		          //Retrieve by column name
-					questionVO.setQuestionId(rs.getString("question_id"));
-					questionVO.setTopic(rs.getString("question_type"));
-					questionVO.setQuestion(rs.getString("question_desc"));
-					questionVO.setOption1(rs.getString("option_1"));
-					questionVO.setOption2(rs.getString("option_2"));
-					questionVO.setOption3(rs.getString("option_3"));
-					questionVO.setOption4(rs.getString("option_4"));
-					questionVO.setAnswer(rs.getString("answer"));
 					
-					questionVOList.add(questionVO);
+					quesCategory = rs.getString("ques_category");
+					if(ExamConstants.QUES_TYPE_SINGLE.equals(quesCategory)){
+						questionVO.setQuestionCategory(ExamConstants.QUES_TYPE_SINGLE);
+						questionVO.setQuestionId(rs.getString("question_id"));
+						questionVO.setTopic(rs.getString("question_type"));
+						questionVO.setQuestion(rs.getString("question_desc"));
+						questionVO.setOption1(rs.getString("option_1"));
+						questionVO.setOption2(rs.getString("option_2"));
+						questionVO.setOption3(rs.getString("option_3"));
+						questionVO.setOption4(rs.getString("option_4"));
+						questionVO.setOption5(rs.getString("option_5"));
+						questionVO.setAnswer(rs.getString("answer"));
+						
+						questionVOList.add(questionVO);
+					} else if(ExamConstants.QUES_TYPE_PARA.equals(quesCategory)){
+						questionVO.setQuestionCategory(ExamConstants.QUES_TYPE_PARA);
+						questionVO.setTopic(rs.getString("question_type"));
+						questionVO.setQuestion(rs.getString("question_desc"));
+						questionVOList.add(questionVO);
+						
+						getParaQuestions(rs.getString("question_id"),questionVOList);
+					}
+					
 		       }
 			ps.close();
 			conn.close();
@@ -259,5 +274,33 @@ public class QuestionDAO {
 		return questionVOList;
 	}
 
-
+	private void getParaQuestions(String quesId, List<QuestionVO> questionVOList) {
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement ps = null;
+		String sqlQuery = "select * from "+DBHelper.DB_NAME+"t_sub_question where question_id = ?";
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, quesId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+					QuestionVO questionVO = new QuestionVO();
+					
+					questionVO.setQuestionId(quesId+ExamConstants.DOT_SYMBOL+rs.getString("sub_question_id"));
+					//questionVO.setTopic(rs.getString("question_type"));
+					questionVO.setQuestion(rs.getString("question_desc"));
+					questionVO.setOption1(rs.getString("option_1"));
+					questionVO.setOption2(rs.getString("option_2"));
+					questionVO.setOption3(rs.getString("option_3"));
+					questionVO.setOption4(rs.getString("option_4"));
+					questionVO.setOption5(rs.getString("option_5"));
+					questionVO.setAnswer(rs.getString("answer"));
+					
+					questionVOList.add(questionVO);
+		       }
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+	}
 }
