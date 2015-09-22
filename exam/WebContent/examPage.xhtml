@@ -87,7 +87,8 @@
 			
 			<div class="container" align="left"  style="padding-left: 7%;padding-top: 2%">
 			  <!--  <div style="border: 2px solid #8AC007;padding-left: 5%;padding-bottom: 5%;">-->
-			 <div class="rounded_border"> 
+			 <div class="rounded_border">
+			 <h:panelGroup id="examQuestionId"> 
 					<div>
 							<h3><h:outputLabel value="Question : "/></h3>
 							<h4><h:outputLabel value="#{examBean.questionVO.question}" /></h4>
@@ -112,15 +113,18 @@
 									id="buttonNameHidden" value="#{examBean.renderButton}" />
 									
 					</div>
+					
 					<div align="center">
 					<h:commandButton id="nextBtn" value="#{examBean.renderButton}"
-						action="#{examBean.populateNextQuestion}" class="btn btn-lg btn-primary"
-						>
+						class="btn btn-lg btn-primary">
 						<f:param name="examObtainedMarks"
 							value="#{examBean.examObtainedMarks}" />
+							<f:ajax execute="@form" render="examQuestionId" listener="#{examBean.generateNextQuestion}" />
+							
 					</h:commandButton>
 					
-					</div> 
+					</div>
+					</h:panelGroup> 
 				</div>
 			</div>
 	</h:form>

@@ -10,14 +10,18 @@ package com.vo;
 public class QuestionVO {
 	private String questionId;
 	private String topic;
+	private String quesTitle;
 	private String question;
 	private String option1;
 	private String option2;
 	private String option3;
 	private String option4;
+	private String option5;
 	private String answer;
+	private String questionCategory;
 	
-	private boolean selectedQues;
+	private boolean selectedSingleQues;
+	private boolean selectedParaQues;
 	
 	public String getQuestionId() {
 		return questionId;
@@ -82,14 +86,44 @@ public class QuestionVO {
 		this.answer = answer;
 	}
 
-	public boolean isSelectedQues() {
-		return selectedQues;
+	public String getQuestionCategory() {
+		return questionCategory;
 	}
 
-	public void setSelectedQues(boolean selectedQues) {
-		this.selectedQues = selectedQues;
+	public void setQuestionCategory(String questionCategory) {
+		this.questionCategory = questionCategory;
+	}
+
+	public String getOption5() {
+		return option5;
+	}
+
+	public void setOption5(String option5) {
+		this.option5 = option5;
+	}
+
+	public String getQuesTitle() {
+		return quesTitle;
+	}
+
+	public void setQuesTitle(String quesTitle) {
+		this.quesTitle = quesTitle;
+	}
+
+	public boolean isSelectedSingleQues() {
+		return selectedSingleQues;
+	}
+
+	public void setSelectedSingleQues(boolean selectedSingleQues) {
+		this.selectedSingleQues = selectedSingleQues;
+	}
+
+	public boolean isSelectedParaQues() {
+		return selectedParaQues;
+	}
+
+	public void setSelectedParaQues(boolean selectedParaQues) {
+		this.selectedParaQues = selectedParaQues;
 	}
 	
-	
-
 }

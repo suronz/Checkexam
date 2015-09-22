@@ -5,10 +5,12 @@
 
 package com.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -70,6 +72,7 @@ public class ExamBean {
 		}
 	}
 
+	/*@SuppressWarnings("unchecked")
 	public String populateNextQuestion() {
 		List<ExamVO> examVOList = new ArrayList<ExamVO>();
 		List<QuestionVO> questionVOList = new ArrayList<QuestionVO>();
@@ -117,7 +120,7 @@ public class ExamBean {
 			System.out.println(examVO1.getExamResult());
 		}
 
-		if(isExamTimeUp.equals("Y"))
+		if(StringUtils.equals(isExamTimeUp, "Y"))
 		{
 			return saveStudentAns(examVOList);
 		}
@@ -137,13 +140,14 @@ public class ExamBean {
 
 		return null;
 		//}
-	}
+	}*/
 
 	/**
 	 * @param examVOList
 	 * @return
+	 * @throws IOException 
 	 */
-	private String saveStudentAns(List<ExamVO> examVOList) {
+	private void saveStudentAns(List<ExamVO> examVOList) throws IOException {
 		int examMarks = 0;
 		for (ExamVO examVO1 : examVOList) {
 			if(StringUtils.equals("Correct", examVO1.getExamResult()))
@@ -159,7 +163,78 @@ public class ExamBean {
 		String paperNo = (String) SessionHelper.getValueFromSession("paperNo");
 		String studId = (String) SessionHelper.getValueFromSession("userID");
 		examDAO.setStudExamAns(studId,examVOList,examName,paperNo,getExamObtainedMarks());
-		return "examResultPage";
+		//return "examResultPage";
+		FacesContext.getCurrentInstance().getExternalContext().redirect("examResult.xhtml");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void generateNextQuestion(AjaxBehaviorEvent event) throws IOException {
+		List<ExamVO> examVOList = new ArrayList<ExamVO>();
+		List<QuestionVO> questionVOList = new ArrayList<QuestionVO>();
+		//if (StringUtils.equals("Submit", getRenderButton())) {
+		//	return "error";
+		//} else {
+		examPaperVO = (ExamPaperVO)SessionHelper.getValueFromSession("EXAMINFO");
+		String quesSeqStr = String.valueOf(SessionHelper.getValueFromSession("quesSeqNo"));
+		int quesSeq;
+		if(StringUtils.isNumeric(quesSeqStr))
+		{
+			quesSeq = Integer.valueOf(quesSeqStr);
+			//int quesSeq = getQuesSeqNo();
+		}
+		else
+		{
+			quesSeq = 0;
+		}
+		questionVOList = (List<QuestionVO>) SessionHelper.getValueFromSession("examQuestionList");
+		QuestionVO currentQuestionVO = questionVOList.get(quesSeq);
+		ExamVO examVO = new ExamVO();
+		examVO.setQuesId(currentQuestionVO.getQuestionId());
+		examVO.setExamAns(getExamAns());
+		if (StringUtils.equals(currentQuestionVO.getAnswer(), getExamAns())) {
+			examVO.setExamResult("Correct");
+		} else {
+			examVO.setExamResult("Wrong");
+		}
+		examVOList = (List<ExamVO>) SessionHelper.getValueFromSession("examVOList");
+		examVOList.add(quesSeq, examVO);
+		SessionHelper.removeValueFromSession("examVOList");
+		SessionHelper.setValueToSession("examVOList", examVOList);
+
+		quesSeq++;
+		SessionHelper.setValueToSession("quesSeqNo", quesSeq);
+		//setQuesSeqNo(quesSeq);
+
+		if (questionVOList.size() > quesSeq) {
+			setQuestionVO(questionVOList.get(quesSeq));
+		}
+		setExamAns(null);
+		for (ExamVO examVO1 : examVOList) {
+			System.out.println("Ques Id: " + examVO1.getQuesId());
+			System.out.println(examVO1.getExamAns());
+			System.out.println(examVO1.getExamResult());
+		}
+
+		if(StringUtils.equals(isExamTimeUp, "Y"))
+		{
+			saveStudentAns(examVOList);
+		}
+
+		if (questionVOList.size() == quesSeq + 1) {
+			setRenderButton("Submit");
+		}
+		else if (questionVOList.size() > quesSeq + 1) 
+		{
+			setRenderButton("Next");	
+		}
+		else
+		{
+			saveStudentAns(examVOList);
+		}
+		
+
+		//return null;
+		//}
 	}
 
 	public QuestionVO getQuestionVO() {

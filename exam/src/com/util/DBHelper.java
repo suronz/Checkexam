@@ -9,9 +9,9 @@ public class DBHelper {
     //private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_exam_db";
 	private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_exam_db";
 	public final static String DB_NAME = "epariksh_exam_db.";
-	public final static String ANGEL_INST_ADMIN1 = "dvl_admin1";
+	public final static String ANGEL_INST_ADMIN1 = "admin";
 	public final static String ANGEL_INST_ADMIN2 = "dvl_admin2";
-    
+
 	public static Connection getConnection() {
     	 /*Connection conn = null;
 		  String userName = "epariksh_test"; 

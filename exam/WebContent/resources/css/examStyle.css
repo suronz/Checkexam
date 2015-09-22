@@ -1,0 +1,27 @@
+.paraTableColMid {
+	width: 25%;
+}
+
+.paraTableColLarge {
+	width: 55%;
+}
+
+.paraTableColSmall {
+	width: 15%;
+}
+
+.singleTableTopicCol {
+	width: 10%;
+}
+.singleTableQuesCol {
+	width: 25%;
+}
+.singleTableOptionCol {
+	width: 10%;
+}
+.singleTableAnsCol {
+	width: 9%;
+}
+.singleTableSelectCol {
+	width: 5%;
+}
