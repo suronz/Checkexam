@@ -43,6 +43,11 @@
 		<managed-bean-class>com.controller.ExamResultBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>manageStudentBean</managed-bean-name>
+		<managed-bean-class>com.controller.ManageStudentBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 
 
 	<navigation-rule>
@@ -138,6 +143,13 @@
 		<navigation-case>
 			<from-outcome>login</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/manage_student.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>statchange</from-outcome>
+			<to-view-id>/manage_student.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
