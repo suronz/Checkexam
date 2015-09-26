@@ -17,9 +17,9 @@
 		<div id="wrapper">
 			<div id="container">
 			<script type="text/javascript">
-		$(function() {
+		/*$(function() {
 			alert("Inside Dialog");
-		    $( "#viewParaQuesHdnId" ).dialog({
+		    $( "#setExamPageId\\:viewParaQuesHdnId" ).dialog({
 		      autoOpen: false,
 		      show: {
 		        effect: "blind",
@@ -31,10 +31,8 @@
 		      }
 		    });
 		 
-		    $( ".viewParaPanelClass" ).click(function() {
-		      $( "#viewParaQuesHdnId" ).dialog( "open" );
-		    });
-		  });
+		   
+		  });*/
 		</script>
 				<br />
 				<div class="page-header">
@@ -263,7 +261,7 @@
 		<div class="copy-right">
 			<center>
 				<p>
-					Copyright 2015. Powered by <a href="http://comettech.co">CometTech
+					Copyright 2015. Powered by <a href="http://www.comettech.co">CometTech
 					Pvt. Ltd.</a>
 				</p>
 			</center>
@@ -275,6 +273,25 @@
   			<p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
 		</div>
 		
+
+		<script type="text/javascript">
+	$( document ).ready(function() {
+		$("#setExamPageId\\:createExamId").click(function(){
+			var examPaperName = $("#setExamPageId\\:examName").val()+$("#setExamPageId\\:paperNo").val();
+			if($("#examPapers").val().contains(examPaperName.toUpperCase())) {
+				alert("THIS EXAM NAME AND PAPER NO IS ALREADY PRESENT. PLEASE PROVIDE ANOTHER EXAM NAME AND PAPER NO");
+				return false;
+			}
+	        return true;
+	    });
+		 $("#setExamPageId\\:paraQuesTableId").click(function() {
+		    	alert("this is for para viewing");
+		    	return true;
+		      //$("#setExamPageId\\:viewParaQuesHdnId" ).dialog( "open" );
+		    });
+	});
+	</script>
+
 	</ui:define>
 </ui:composition>
 </html>

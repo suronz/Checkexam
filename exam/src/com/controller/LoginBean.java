@@ -19,7 +19,6 @@ public class LoginBean
 
 
 	public String validateCredential() {
-		System.out.println("Inside validate");
 		String actioneStr = null;
 		regisLoginDao = new RegisLoginDAO();
 		String uName = getName();
@@ -35,8 +34,14 @@ public class LoginBean
 				actioneStr = "admin";
 			else if(result.equals("student"))
 				actioneStr = "student";
+			else if(result.equals("not active"))
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new javax.faces.application.FacesMessage(
+								FacesMessage.SEVERITY_ERROR,"Contact to admin to activate your profile", null));
 		}else
-			FacesContext.getCurrentInstance().addMessage(null, new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_ERROR,"please enter a valid username or password", null));
+			FacesContext.getCurrentInstance().addMessage(
+					null, new javax.faces.application.FacesMessage(
+							FacesMessage.SEVERITY_ERROR, "please enter a valid username or password", null));
 			//result = "login";
 		
 		return actioneStr;

@@ -6,16 +6,13 @@ import java.sql.DriverManager;
 public class DBHelper {
 	
 	private final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-    private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_exam_db";
-    public final static String DB_NAME = "epariksh_exam_db.";
-	//private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_angelinst_exam_db";
-	//public final static String DB_NAME = "epariksh_angelinst_exam_db.";
-	public final static String ANGEL_INST_ADMIN1 = "angel_admin1";
-	public final static String ANGEL_INST_ADMIN2 = "angel_admin2";
-    
+    //private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_exam_db";
+	private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_exam_db";
+	public final static String DB_NAME = "epariksh_exam_db.";
+	public final static String ANGEL_INST_ADMIN1 = "admin";
+	public final static String ANGEL_INST_ADMIN2 = "dvl_admin2";
+
 	public static Connection getConnection() {
-    	
-		//For DVL deployment
 		/*Connection conn = null;
 		String userName = "epariksh_test"; 
 		String password = "test@123";*/
@@ -27,9 +24,13 @@ public class DBHelper {
 		  
 		  //For local development
 		Connection conn = null;
+		  String userName = "epariksh_test"; 
+		  String password = "test@123";
+		  /*Connection conn = null;
 		  String userName = "root"; 
 		  String password = "root";
 		  
+		  String password = "";*/
 		  try {
 		  Class.forName(JDBC_DRIVER);
 		  conn = DriverManager.getConnection(DB_URL,userName,password);

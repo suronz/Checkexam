@@ -33,8 +33,11 @@ public class RegisLoginDAO {
 				String typeId  = rs.getString("type_id");
 				if(status.equals("active") && typeId.equals("1")) {
 					result = "admin";					
-				} else if (status.equals("active") && typeId.equals("2")) { 
-					result = "student";
+				} else if (typeId.equals("2")) { 
+					if(!status.equals("active"))
+						result = "not active";
+					else
+						result ="student";
 				}
 			}
 		} catch (SQLException e) {
@@ -63,7 +66,7 @@ public class RegisLoginDAO {
 			ps.setString(1, registerVO.getUserName());
 			ps.setString(2, registerVO.getPassword());
 			ps.setString(3, "2");
-			ps.setString(4, "active");
+			ps.setString(4, "deactive");
 			ps.executeUpdate();
 
 			ps.close();

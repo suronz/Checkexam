@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/Templates/BasicTemplate.xhtml">
+
+	<ui:define name="content">
+	   <div id="wrapper">
+			<div id="container-fluid">
+			<br />
+			<h:form>
+				<div class="page-header">
+							<h1> <h:graphicImage library="images" name="list.png" width="50" height="50" /> All Students</h1>
+						
+						<div class="pull-right" >
+							<h:commandButton value="Activate" class="btn btn-success" 
+										action="#{manageStudentBean.changeStatus}">
+										<f:param name="action" value="active" />
+										</h:commandButton>
+										&nbsp;
+							<h:commandButton value="Deactivate" class="btn  btn-warning" 
+										action="#{manageStudentBean.changeStatus}">
+										<f:param name="action" value="deactive" />
+										</h:commandButton>
+						</div>
+						<br />
+					
+				</div>		
+					<h:dataTable value="#{manageStudentBean.studentList}" 
+						var="student" border="1" id="studentListTableId">
+						<h:column>
+							<f:facet name="header">Name</f:facet>
+							<h:outputLabel value="#{student.name}"></h:outputLabel>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Email</f:facet>
+							<h:outputLabel value="#{student.email}"></h:outputLabel>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Register on</f:facet>
+							<h:outputLabel value="#{student.registredDate}"></h:outputLabel>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Status</f:facet>
+							 <!--  <h:outputLabel value="#{student.status}"></h:outputLabel>-->
+							 <h:graphicImage library="images" name="#{student.statImageName}"/>
+							
+						</h:column>
+						<h:column>
+							<f:facet name="header">Select</f:facet>
+							<h:selectBooleanCheckbox id="checkStudent"
+									value="#{student.selectedStudent}">
+							</h:selectBooleanCheckbox>
+							<h:outputLabel value="#{student.userId}" id="studentId"
+										style="display:none;" />
+							</h:column>
+					</h:dataTable>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+	
+</ui:composition>
+</html>
