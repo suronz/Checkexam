@@ -13,12 +13,12 @@ public class DBHelper {
 	public final static String ANGEL_INST_ADMIN2 = "dvl_admin2";
 
 	public static Connection getConnection() {
-    	 Connection conn = null;
+    	  /*Connection conn = null;
 		  String userName = "epariksh_test"; 
-		  String password = "test@123";
-		  /*Connection conn = null;
+		  String password = "test@123";*/
+		  Connection conn = null;
 		  String userName = "root"; 
-		  String password = "";*/
+		  String password = "";
 		  try {
 		  Class.forName(JDBC_DRIVER);
 		  conn = DriverManager.getConnection(DB_URL,userName,password);
