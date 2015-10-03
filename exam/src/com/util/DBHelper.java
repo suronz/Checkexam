@@ -13,6 +13,7 @@ public class DBHelper {
 	public final static String ANGEL_INST_ADMIN2 = "dvl_admin2";
 
 	public static Connection getConnection() {
+		//For DVL
 		/*Connection conn = null;
 		String userName = "epariksh_test"; 
 		String password = "test@123";*/
@@ -23,14 +24,10 @@ public class DBHelper {
 		  String password = "ParikshaPanel$125";*/
 		  
 		  //For local development
-		Connection conn = null;
-		  String userName = "epariksh_test"; 
-		  String password = "test@123";
-		  /*Connection conn = null;
+		  Connection conn = null;
 		  String userName = "root"; 
 		  String password = "root";
 		  
-		  String password = "";*/
 		  try {
 		  Class.forName(JDBC_DRIVER);
 		  conn = DriverManager.getConnection(DB_URL,userName,password);
