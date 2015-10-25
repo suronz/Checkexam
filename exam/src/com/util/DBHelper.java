@@ -14,9 +14,9 @@ public class DBHelper {
 
 	public static Connection getConnection() {
 		//For DVL
-		/*Connection conn = null;
+		Connection conn = null;
 		String userName = "epariksh_test"; 
-		String password = "test@123";*/
+		String password = "test@123";
 		
 		//For Angel Institute - PROD
 		/*Connection conn = null;
@@ -24,9 +24,9 @@ public class DBHelper {
 		  String password = "ParikshaPanel$125";*/
 		  
 		  //For local development
-		  Connection conn = null;
+		  /*Connection conn = null;
 		  String userName = "root"; 
-		  String password = "root";
+		  String password = "root";*/
 		  
 		  try {
 		  Class.forName(JDBC_DRIVER);
