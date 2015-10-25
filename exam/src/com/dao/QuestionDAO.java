@@ -120,6 +120,7 @@ public class QuestionDAO {
 		List<List<QuestionVO>> allQuestionVOList= new ArrayList<List<QuestionVO>>();
 		List<QuestionVO> singleQuestionVOList = new ArrayList<QuestionVO>();
 		List<QuestionVO> paraQuestionVOList = new ArrayList<QuestionVO>();
+		List<QuestionVO> imgQuestionVOList = new ArrayList<QuestionVO>();
 		Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
 		String sqlQuery = "select * from "+DBHelper.DB_NAME+"t_question order by question_type";
@@ -149,10 +150,17 @@ public class QuestionDAO {
 						questionVO.setQuesTitle(rs.getString("ques_title"));
 						
 						paraQuestionVOList.add(questionVO);
+					} else if (StringUtils.isNotEmpty(quesCategory) && StringUtils.equals(quesCategory, "Image")) {
+						questionVO.setQuestionId(rs.getString("question_id"));
+						questionVO.setTopic(rs.getString("question_type"));
+						questionVO.setQuesTitle(rs.getString("ques_title"));
+						
+						imgQuestionVOList.add(questionVO);
 					}
 		       }
 			allQuestionVOList.add(singleQuestionVOList);
 			allQuestionVOList.add(paraQuestionVOList);
+			allQuestionVOList.add(imgQuestionVOList);
 			ps.close();
 			conn.close();
 		} catch (SQLException e) {
@@ -262,7 +270,14 @@ public class QuestionDAO {
 						questionVO.setQuestion(rs.getString("question_desc"));
 						questionVOList.add(questionVO);
 						
-						getParaQuestions(rs.getString("question_id"),questionVOList);
+						getParaAndImgQuestions(rs.getString("question_id"),questionVOList, conn);
+					} else if(ExamConstants.QUES_TYPE_IMG.equals(quesCategory)){
+						questionVO.setQuestionCategory(ExamConstants.QUES_TYPE_IMG);
+						questionVO.setTopic(rs.getString("question_type"));
+						questionVO.setQuestion(rs.getString("question_desc"));
+						questionVOList.add(questionVO);
+						
+						getParaAndImgQuestions(rs.getString("question_id"),questionVOList, conn);
 					}
 					
 		       }
@@ -274,8 +289,8 @@ public class QuestionDAO {
 		return questionVOList;
 	}
 
-	private void getParaQuestions(String quesId, List<QuestionVO> questionVOList) {
-		Connection conn = DBHelper.getConnection();
+	private void getParaAndImgQuestions(String quesId, List<QuestionVO> questionVOList, Connection conn) {
+		//Connection conn = DBHelper.getConnection();
 		PreparedStatement ps = null;
 		String sqlQuery = "select * from "+DBHelper.DB_NAME+"t_sub_question where question_id = ?";
 		try {
@@ -298,9 +313,77 @@ public class QuestionDAO {
 					questionVOList.add(questionVO);
 		       }
 			ps.close();
-			conn.close();
+			//conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
+	}
+	
+	public int getNextQuestionId() {
+		int rowCount = 0;
+		int nextQuestionId = 0;
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement ps = null;
+		String sqlQuery = "select max(question_id)+1 from "+DBHelper.DB_NAME+"t_question";
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				nextQuestionId = Integer.valueOf(rs.getString(1));
+			}
+			conn.close();
+		} catch (SQLException e) {
+			rowCount = 0;
+			e.printStackTrace();
+		}
+		return nextQuestionId;
+	}
+	
+	public int insertImgQuestion(QuestionVO paraQuestionVO, List<QuestionVO> subQuestionVOList, int questionId) {
+		int rowCount = 0;
+		int subQuestionId = 1;
+		Connection conn = DBHelper.getConnection();
+		PreparedStatement ps = null;
+		String sqlQuery = null;
+		try {
+			sqlQuery = "INSERT INTO "+DBHelper.DB_NAME+"t_question (question_id, question_type, question_desc, ques_category, ques_title) "
+				+ "VALUES (?,?,?,?,?)";
+		
+			ps = conn.prepareStatement(sqlQuery);
+
+			ps.setString(1, String.valueOf(questionId));
+			ps.setString(2, paraQuestionVO.getTopic());
+			ps.setString(3, paraQuestionVO.getQuestion());
+			ps.setString(4, paraQuestionVO.getQuestionCategory());
+			ps.setString(5,paraQuestionVO.getQuesTitle());
+			
+			rowCount = ps.executeUpdate();
+			ps.close();
+			
+			sqlQuery = "INSERT INTO "+DBHelper.DB_NAME+"t_sub_question (question_id, sub_question_id, question_desc, option_1, option_2, option_3, option_4, option_5, answer) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?)";
+			ps = conn.prepareStatement(sqlQuery);
+			
+			for (QuestionVO questionVO : subQuestionVOList) {
+				ps.setString(1, String.valueOf(questionId));
+				ps.setString(2, String.valueOf(subQuestionId));
+				ps.setString(3, questionVO.getQuestion());
+				ps.setString(4, questionVO.getOption1());
+				ps.setString(5, questionVO.getOption2());
+				ps.setString(6, questionVO.getOption3());
+				ps.setString(7, questionVO.getOption4());
+				ps.setString(8, questionVO.getOption5());
+				ps.setString(9, questionVO.getAnswer());
+				ps.addBatch();
+				subQuestionId++;
+			}
+			ps.executeBatch();
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			rowCount = 0;
+			e.printStackTrace();
+		}
+		return rowCount;
 	}
 }

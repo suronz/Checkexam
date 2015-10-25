@@ -4,8 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:f="http://java.sun.com/jsf/core">
 	
 	
 	
@@ -170,6 +169,8 @@
 						<span class="btn btn-primary btn-sm" id="singleQuesBtnId">Single Question</span>
 						&nbsp;
 						<span class="btn btn-primary btn-sm" id="paraQuesBtnId">Paragraph Question</span>
+						&nbsp;
+						<span class="btn btn-primary btn-sm" id="imgQuesBtnId">Pictorial Question</span>
 						<br />
 						<h3>Select Questions</h3>
 						<div class="table-responsive"> 
@@ -250,6 +251,34 @@
 								</h:column>
 							</h:dataTable>
 						</div>
+						
+						<div class="bs-example" id="imgQuesDivId" style="display: none;">
+							<h:dataTable class="table-responsive"
+								value="#{examPaperBean.imgQuestionVOList}" var="question"
+								border="2" id="imgQuesTableId" columnClasses="paraTableColMid, paraTableColLarge, paraTableColSmall">
+								<h:column>
+									<f:facet name="header">Topic</f:facet>
+									<h:outputLabel value="#{question.topic}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Title</f:facet>
+									<PRE style="border: 0;"><h:outputLabel value="#{question.quesTitle}" style="width : 97%;"/></PRE>
+									<h:panelGroup id="viewImgPanelId" class="viewParaPanelClass">
+									<h:graphicImage library="images" name="upload.png" width="30"
+									height="30" alt="View Image" title="View Image" id="viewImgId">
+									</h:graphicImage>
+									</h:panelGroup>
+								</h:column>
+								<h:column>
+									<f:facet name="header">Select</f:facet>
+									<h:selectBooleanCheckbox id="selectImgQues"
+										styleClass="selectQuesClass" value="#{question.selectedImgQues}" />
+									<h:outputLabel value="#{question.questionId}" id="imgQuesId"
+										style="display:none;" />
+								</h:column>
+							</h:dataTable>
+						</div>
+						
 						<br /> 
 						<h:commandButton value="Create" class="btn btn-lg btn-primary" id="createExamId"
 							action="#{examPaperBean.createExamPaper}"></h:commandButton>

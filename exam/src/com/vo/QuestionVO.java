@@ -22,6 +22,7 @@ public class QuestionVO {
 	
 	private boolean selectedSingleQues;
 	private boolean selectedParaQues;
+	private boolean selectedImgQues;
 	
 	public String getQuestionId() {
 		return questionId;
@@ -124,6 +125,14 @@ public class QuestionVO {
 
 	public void setSelectedParaQues(boolean selectedParaQues) {
 		this.selectedParaQues = selectedParaQues;
+	}
+
+	public boolean isSelectedImgQues() {
+		return selectedImgQues;
+	}
+
+	public void setSelectedImgQues(boolean selectedImgQues) {
+		this.selectedImgQues = selectedImgQues;
 	}
 	
 }

@@ -35,6 +35,8 @@ public class ExamBean {
 	private String isExamTimeUp = null;
 	private String examQuesPara = null;
 	private String quesParaStyle = null;
+	private String quesImgStyle = null;
+	private String examQuesImg = null;
 
 	public ExamBean() {
 		String isPopulate = String.valueOf(SessionHelper.getValueFromSession("isPopulate"));
@@ -68,12 +70,25 @@ public class ExamBean {
 				setExamQuesPara("");
 				setQuestionVO(firstQuestionVO);
 				setQuesParaStyle("display : none;");
+				setQuesImgStyle("display : none;");
 				SessionHelper.setValueToSession("quesSeqNo", 0);
+				SessionHelper.setValueToSession("currentQuesType", ExamConstants.QUES_TYPE_SINGLE);
 			} else if (ExamConstants.QUES_TYPE_PARA.equals(firstQuestionVO.getQuestionCategory())){
 				setExamQuesPara(firstQuestionVO.getQuestion());
 				setQuestionVO(examQuestionList.get(1));
 				setQuesParaStyle("display : inline;");
+				setQuesImgStyle("display : none;");
+				SessionHelper.setValueToSession("examQuesPara", getExamQuesPara());
 				SessionHelper.setValueToSession("quesSeqNo", 1);
+				SessionHelper.setValueToSession("currentQuesType", ExamConstants.QUES_TYPE_PARA);
+			} else if (ExamConstants.QUES_TYPE_IMG.equals(firstQuestionVO.getQuestionCategory())){
+				setExamQuesImg(firstQuestionVO.getQuestion());
+				setQuestionVO(examQuestionList.get(1));
+				setQuesParaStyle("display : none;");
+				setQuesImgStyle("display : inline;");
+				SessionHelper.setValueToSession("examQuesImg", getExamQuesImg());
+				SessionHelper.setValueToSession("quesSeqNo", 1);
+				SessionHelper.setValueToSession("currentQuesType", ExamConstants.QUES_TYPE_IMG);
 			}
 			
 			//setPopulate(false);
@@ -227,15 +242,37 @@ public class ExamBean {
 				quesSeq++;
 				setQuestionVO(questionVOList.get(quesSeq));
 				setQuesParaStyle("display : inline;");
+				setQuesImgStyle("display : none;");
+				SessionHelper.setValueToSession("currentQuesType", ExamConstants.QUES_TYPE_PARA);
+			} else if(ExamConstants.QUES_TYPE_IMG.equals(questionVOList.get(quesSeq).getQuestionCategory())){
+				setExamQuesImg(questionVOList.get(quesSeq).getQuestion());
+				SessionHelper.setValueToSession("examQuesImg", getExamQuesImg());
+				quesSeq++;
+				setQuestionVO(questionVOList.get(quesSeq));
+				setQuesParaStyle("display : none;");
+				setQuesImgStyle("display : inline;");
+				SessionHelper.setValueToSession("currentQuesType", ExamConstants.QUES_TYPE_IMG);
 			} else if(ExamConstants.QUES_TYPE_SINGLE.equals(questionVOList.get(quesSeq).getQuestionCategory())){
 				setExamQuesPara("");
 				setQuestionVO(questionVOList.get(quesSeq));
 				setQuesParaStyle("display : none;");
+				setQuesImgStyle("display : none;");
 			} else {
-				String quesPara = (String) SessionHelper.getValueFromSession("examQuesPara");
-				setExamQuesPara(quesPara);
-				setQuestionVO(questionVOList.get(quesSeq));
-				setQuesParaStyle("display : inline;");
+				String currentQuesType = (String) SessionHelper.getValueFromSession("currentQuesType");
+				if(StringUtils.equals(ExamConstants.QUES_TYPE_PARA, currentQuesType)){
+					String quesPara = (String) SessionHelper.getValueFromSession("examQuesPara");
+					setExamQuesPara(quesPara);
+					setQuestionVO(questionVOList.get(quesSeq));
+					setQuesParaStyle("display : inline;");
+					setQuesImgStyle("display : none;");
+				} else if(StringUtils.equals(ExamConstants.QUES_TYPE_IMG, currentQuesType)){
+					String quesImg = (String) SessionHelper.getValueFromSession("examQuesImg");
+					setExamQuesImg(quesImg);
+					setQuestionVO(questionVOList.get(quesSeq));
+					setQuesParaStyle("display : none;");
+					setQuesImgStyle("display : inline;");
+				}
+				
 			}
 		}
 		
@@ -362,6 +399,22 @@ public class ExamBean {
 
 	public void setQuesParaStyle(String quesParaStyle) {
 		this.quesParaStyle = quesParaStyle;
+	}
+
+	public String getQuesImgStyle() {
+		return quesImgStyle;
+	}
+
+	public void setQuesImgStyle(String quesImgStyle) {
+		this.quesImgStyle = quesImgStyle;
+	}
+
+	public String getExamQuesImg() {
+		return examQuesImg;
+	}
+
+	public void setExamQuesImg(String examQuesImg) {
+		this.examQuesImg = examQuesImg;
 	}
 
 

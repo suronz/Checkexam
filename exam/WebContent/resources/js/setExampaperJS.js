@@ -3,11 +3,19 @@ $(document).ready(function() {
 		//alert('Single');
 		$("#singleQuesDivId").css("display","inline");
 		$("#paraQuesDivId").css("display","none");
+		$("#imgQuesDivId").css("display","none");
 	});
 	$("#paraQuesBtnId").click(function() {
 		//alert('Para');
 		$("#paraQuesDivId").css("display","inline");
 		$("#singleQuesDivId").css("display","none");
+		$("#imgQuesDivId").css("display","none");
+	});
+	$("#imgQuesBtnId").click(function() {
+		//alert('Img');
+		$("#paraQuesDivId").css("display","none");
+		$("#singleQuesDivId").css("display","none");
+		$("#imgQuesDivId").css("display","inline");
 	});
 	$("#setExamPageId\\:createExamId").click(function(){
 		var examPaperName = $("#setExamPageId\\:examName").val()+$("#setExamPageId\\:paperNo").val();
@@ -17,13 +25,6 @@ $(document).ready(function() {
 		}
         return true;
     });
-	/*$(".viewParaClass").click(function(){
-        $.ajax({url: "#{examBean.showParagraph}", 
-        	success: function(result){
-            //$("#div1").html(result);
-        	alert("Success!!");
-        }});
-    });*/
 });
 
 function myFunc(data) {

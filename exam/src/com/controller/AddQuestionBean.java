@@ -10,11 +10,15 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.custom.fileupload.UploadedFile;
 
 import com.dao.QuestionDAO;
 import com.util.ExamConstants;
+import com.util.FileUploadUtil;
 import com.vo.QuestionVO;
 
 public class AddQuestionBean {
@@ -22,6 +26,8 @@ public class AddQuestionBean {
 	private String questionCategory = null;
 	private String quesParagraph = null;
 	private String quesTitle = null;
+	private UploadedFile uploadImage = null;
+	
 	private String paraQuestionsStr = null;
 	private String paraOption1Str = null;
 	private String paraOption2Str = null;
@@ -29,6 +35,14 @@ public class AddQuestionBean {
 	private String paraOption4Str = null;
 	private String paraOption5Str = null;
 	private String paraAnsStr = null;
+	
+	private String imgQuestionsStr = null;
+	private String imgOption1Str = null;
+	private String imgOption2Str = null;
+	private String imgOption3Str = null;
+	private String imgOption4Str = null;
+	private String imgOption5Str = null;
+	private String imgAnsStr = null;
 
 	public AddQuestionBean() {
 	}
@@ -57,13 +71,13 @@ public class AddQuestionBean {
 				paraQuestionVO.setQuestionCategory(getQuestionCategory());
 				
 				List<QuestionVO> subQuestionVOList = new ArrayList<QuestionVO>();
-				String[] paraQuestionDescArr = paraQuestionsStr.split(ExamConstants.PARA_QUES_SEPARATOR);
-				String[] paraOption1Arr = paraOption1Str.split(ExamConstants.PARA_OPTION1_SEPARATOR);
-				String[] paraOption2Arr = paraOption2Str.split(ExamConstants.PARA_OPTION2_SEPARATOR);
-				String[] paraOption3Arr = paraOption3Str.split(ExamConstants.PARA_OPTION3_SEPARATOR);
-				String[] paraOption4Arr = paraOption4Str.split(ExamConstants.PARA_OPTION4_SEPARATOR);
-				String[] paraOption5Arr = paraOption5Str.split(ExamConstants.PARA_OPTION5_SEPARATOR);
-				String[] paraAnsArr = paraAnsStr.split(ExamConstants.PARA_ANS_SEPARATOR);
+				String[] paraQuestionDescArr = paraQuestionsStr.split(ExamConstants.QUES_SEPARATOR);
+				String[] paraOption1Arr = paraOption1Str.split(ExamConstants.OPTION1_SEPARATOR);
+				String[] paraOption2Arr = paraOption2Str.split(ExamConstants.OPTION2_SEPARATOR);
+				String[] paraOption3Arr = paraOption3Str.split(ExamConstants.OPTION3_SEPARATOR);
+				String[] paraOption4Arr = paraOption4Str.split(ExamConstants.OPTION4_SEPARATOR);
+				String[] paraOption5Arr = paraOption5Str.split(ExamConstants.OPTION5_SEPARATOR);
+				String[] paraAnsArr = paraAnsStr.split(ExamConstants.ANS_SEPARATOR);
 				QuestionVO subQuestionVO = null;
 				
 				for (int i = 0; i < paraQuestionDescArr.length; i++) {
@@ -80,6 +94,51 @@ public class AddQuestionBean {
 				}
 				
 				result = questionDAO.insertParaQuestion(paraQuestionVO, subQuestionVOList );
+			} else if (StringUtils.equals(getQuestionCategory(), "Image")) {
+				String fileName = null;
+				int nextQuesId = 0;
+				nextQuesId = questionDAO.getNextQuestionId();
+				if(nextQuesId > 0) {
+					fileName = "img_ques_"+nextQuesId+".jpg";
+					boolean imageUploadSuccessful = FileUploadUtil.uploadImage(uploadImage, fileName);
+					
+					if(imageUploadSuccessful){
+						QuestionVO imgQuestionVO = new QuestionVO();
+						imgQuestionVO.setTopic(getQuestionVO().getTopic());
+						imgQuestionVO.setQuesTitle(getQuesTitle());
+						imgQuestionVO.setQuestion(fileName);
+						imgQuestionVO.setQuestionCategory(getQuestionCategory());
+						
+						List<QuestionVO> subQuestionVOList = new ArrayList<QuestionVO>();
+						String[] imgQuestionDescArr = imgQuestionsStr.split(ExamConstants.QUES_SEPARATOR);
+						String[] imgOption1Arr = imgOption1Str.split(ExamConstants.OPTION1_SEPARATOR);
+						String[] imgOption2Arr = imgOption2Str.split(ExamConstants.OPTION2_SEPARATOR);
+						String[] imgOption3Arr = imgOption3Str.split(ExamConstants.OPTION3_SEPARATOR);
+						String[] imgOption4Arr = imgOption4Str.split(ExamConstants.OPTION4_SEPARATOR);
+						String[] imgOption5Arr = imgOption5Str.split(ExamConstants.OPTION5_SEPARATOR);
+						String[] imgAnsArr = imgAnsStr.split(ExamConstants.ANS_SEPARATOR);
+						QuestionVO subQuestionVO = null;
+						
+						for (int i = 0; i < imgQuestionDescArr.length; i++) {
+							subQuestionVO = new QuestionVO();
+							subQuestionVO.setQuestion(imgQuestionDescArr[i]);
+							subQuestionVO.setOption1(imgOption1Arr[i]);
+							subQuestionVO.setOption2(imgOption2Arr[i]);
+							subQuestionVO.setOption3(imgOption3Arr[i]);
+							subQuestionVO.setOption4(imgOption4Arr[i]);
+							subQuestionVO.setOption5(imgOption5Arr[i]);
+							subQuestionVO.setAnswer(imgAnsArr[i]);
+							
+							subQuestionVOList.add(subQuestionVO);
+						}
+						
+						result = questionDAO.insertImgQuestion(imgQuestionVO, subQuestionVOList, nextQuesId);
+					} else {
+						result = 0;
+					}
+				} else {
+					result = 0;
+				}
 			}
 			
 			if (result != 0)
@@ -205,6 +264,70 @@ public class AddQuestionBean {
 
 	public void setQuesTitle(String quesTitle) {
 		this.quesTitle = quesTitle;
+	}
+
+	public String getImgQuestionsStr() {
+		return imgQuestionsStr;
+	}
+
+	public void setImgQuestionsStr(String imgQuestionsStr) {
+		this.imgQuestionsStr = imgQuestionsStr;
+	}
+
+	public String getImgOption1Str() {
+		return imgOption1Str;
+	}
+
+	public void setImgOption1Str(String imgOption1Str) {
+		this.imgOption1Str = imgOption1Str;
+	}
+
+	public String getImgOption2Str() {
+		return imgOption2Str;
+	}
+
+	public void setImgOption2Str(String imgOption2Str) {
+		this.imgOption2Str = imgOption2Str;
+	}
+
+	public String getImgOption3Str() {
+		return imgOption3Str;
+	}
+
+	public void setImgOption3Str(String imgOption3Str) {
+		this.imgOption3Str = imgOption3Str;
+	}
+
+	public String getImgOption4Str() {
+		return imgOption4Str;
+	}
+
+	public void setImgOption4Str(String imgOption4Str) {
+		this.imgOption4Str = imgOption4Str;
+	}
+
+	public String getImgOption5Str() {
+		return imgOption5Str;
+	}
+
+	public void setImgOption5Str(String imgOption5Str) {
+		this.imgOption5Str = imgOption5Str;
+	}
+
+	public String getImgAnsStr() {
+		return imgAnsStr;
+	}
+
+	public void setImgAnsStr(String imgAnsStr) {
+		this.imgAnsStr = imgAnsStr;
+	}
+
+	public UploadedFile getUploadImage() {
+		return uploadImage;
+	}
+
+	public void setUploadImage(UploadedFile uploadImage) {
+		this.uploadImage = uploadImage;
 	}
 
 }

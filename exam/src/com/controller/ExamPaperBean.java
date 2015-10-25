@@ -21,6 +21,7 @@ import com.vo.QuestionVO;
 public class ExamPaperBean {
 	private List<QuestionVO> singleQuestionVOList = new ArrayList<QuestionVO>();
 	private List<QuestionVO> paraQuestionVOList = new ArrayList<QuestionVO>();
+	private List<QuestionVO> imgQuestionVOList = new ArrayList<QuestionVO>();
 	private ExamPaperVO examPaperVO = new ExamPaperVO();
 	public boolean divHide = false;
 	private List<String> availableExamPaperNames = new ArrayList<String>(); 
@@ -43,6 +44,9 @@ public class ExamPaperBean {
 				}
 				if(allQuestionList.size()>1){
 					paraQuestionVOList = allQuestionList.get(1);
+				}
+				if(allQuestionList.size()>2){
+					imgQuestionVOList = allQuestionList.get(2);
 				}
 			}
 			//setQuestionVOList(questionDAO.getAllQuestion());
@@ -67,7 +71,8 @@ public class ExamPaperBean {
 			QuestionDAO questionDAO = new QuestionDAO();
 			ExamPaperVO examPaperVO = getExamPaperVO();
 			List<QuestionVO> examPaperSingleVOList = getSingleQuestionVOList();
-			List<QuestionVO> examPaperParaVOList = getParaQuestionVOList(); 
+			List<QuestionVO> examPaperParaVOList = getParaQuestionVOList();
+			List<QuestionVO> examPaperImgVOList = getImgQuestionVOList(); 
 
 			if((examPaperVO.getBatchCd().equals("")) || (examPaperVO.getClassCd().equals("")) || 
 					(examPaperVO.getExamDate().equals("")) || (examPaperVO.getExamDuration().equals("")) 
@@ -91,6 +96,15 @@ public class ExamPaperBean {
 				
 				for (QuestionVO questionVO : examPaperParaVOList) {
 					if(questionVO.isSelectedParaQues())
+					{
+						System.out.println(questionVO.getQuestion());
+						System.out.println(questionVO.getQuestionId());
+						questionList.add(questionVO.getQuestionId());
+					}
+				}
+				
+				for (QuestionVO questionVO : examPaperImgVOList) {
+					if(questionVO.isSelectedImgQues())
 					{
 						System.out.println(questionVO.getQuestion());
 						System.out.println(questionVO.getQuestionId());
@@ -207,5 +221,13 @@ public class ExamPaperBean {
 
 	public void setViewParaQuesId(String viewParaQuesId) {
 		this.viewParaQuesId = viewParaQuesId;
+	}
+
+	public List<QuestionVO> getImgQuestionVOList() {
+		return imgQuestionVOList;
+	}
+
+	public void setImgQuestionVOList(List<QuestionVO> imgQuestionVOList) {
+		this.imgQuestionVOList = imgQuestionVOList;
 	}
 }

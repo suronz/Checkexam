@@ -4,8 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:f="http://java.sun.com/jsf/core">
 	
 <h:head>
 	<h:outputStylesheet name="bootstrap.min.css" library="css" />
@@ -92,6 +91,10 @@
 			 <h:panelGroup id="examQuestionId">
 			 		<div class="bs-example" id="quesParaDivId" style="#{examBean.quesParaStyle}">
 			 			<PRE style="border: 0; width : 92%;"><p> #{examBean.examQuesPara} </p></PRE>
+			 			<br/>
+			 		</div>
+			 		<div class="bs-example" id="quesImgDivId" style="#{examBean.quesImgStyle}">
+			 			<img src="./uploadedfiles/quesImages/#{examBean.examQuesImg}" style="width: 92%;"/>
 			 			<br/>
 			 		</div> 
 					<div>
