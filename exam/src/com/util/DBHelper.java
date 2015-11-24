@@ -7,21 +7,21 @@ public class DBHelper {
 	
 	private final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
     //private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_exam_db";
-	private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_exam_db";
-	public final static String DB_NAME = "epariksh_exam_db.";
-	public final static String ANGEL_INST_ADMIN1 = "admin";
-	public final static String ANGEL_INST_ADMIN2 = "dvl_admin2";
+	private final static String DB_URL = "jdbc:mysql://localhost:3306/epariksh_angelInst_exam_db";
+	public final static String DB_NAME = "epariksh_angelInst_exam_db.";
+	public final static String ANGEL_INST_ADMIN1 = "angel_admin1";
+	public final static String ANGEL_INST_ADMIN2 = "angel_admin2";
 
 	public static Connection getConnection() {
 		//For DVL
-		Connection conn = null;
+		/*Connection conn = null;
 		String userName = "epariksh_test"; 
-		String password = "test@123";
+		String password = "test@123";*/
 		
 		//For Angel Institute - PROD
-		/*Connection conn = null;
+		Connection conn = null;
 		  String userName = "epariksh_exam"; 
-		  String password = "ParikshaPanel$125";*/
+		  String password = "ParikshaPanel$125";
 		  
 		  //For local development
 		  /*Connection conn = null;

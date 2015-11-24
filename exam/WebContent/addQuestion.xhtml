@@ -148,7 +148,7 @@
 							<label class="control-label" for="quesTitleId">Question Title <b>(This title will be shown at Create Question paper Page)</b> *</label>
 							<div class="controls">
 								<h:inputTextarea class="form-control" id="quesTitleId" rows="3"
-									value="#{addQuesBean.quesTitle}"></h:inputTextarea>
+									value="#{addQuesBean.quesParaTitle}"></h:inputTextarea>
 							</div>
 							<br/>
 							<label class="control-label" for="quesParaId">Paragraph *</label>
@@ -245,7 +245,7 @@
 							<label class="control-label" for="imgQuesTitleId">Pictorial Question Title <b>(This title will be shown at Create Question paper Page)</b> *</label>
 							<div class="controls">
 								<h:inputTextarea class="form-control" id="imgQuesTitleId" rows="3"
-									value="#{addQuesBean.quesTitle}"></h:inputTextarea>
+									value="#{addQuesBean.quesImgTitle}"></h:inputTextarea>
 							</div>
 							<br/>
 							<label class="control-label" for="quesImgId">Upload Image/Diagram *</label>
@@ -254,7 +254,7 @@
 									value="#{addQuesBean.quesParagraph}"></h:inputTextarea> -->
 								<!-- <input type="file" name="imgQues" id="imgQues" size="50" value=""/> -->
 								<t:inputFileUpload id="file" value="#{addQuesBean.uploadImage}"
-									required="true" storage="file" accept="image/*"
+									required="false" storage="file" accept="image/*"
 									immediate="true" />
 							</div>
 							<br /> <span class="btn btn-primary btn-sm" id="imgProceedBtnId">Proceed</span>

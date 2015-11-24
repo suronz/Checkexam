@@ -23,9 +23,10 @@ import com.vo.QuestionVO;
 
 public class AddQuestionBean {
 	private QuestionVO questionVO = new QuestionVO();
-	private String questionCategory = null;
+	private String questionCategory = "Single";
 	private String quesParagraph = null;
-	private String quesTitle = null;
+	private String quesParaTitle = null;
+	private String quesImgTitle = null;
 	private UploadedFile uploadImage = null;
 	
 	private String paraQuestionsStr = null;
@@ -66,7 +67,7 @@ public class AddQuestionBean {
 			} else if(StringUtils.equals(getQuestionCategory(), "Paragraph")) {
 				QuestionVO paraQuestionVO = new QuestionVO();
 				paraQuestionVO.setTopic(getQuestionVO().getTopic());
-				paraQuestionVO.setQuesTitle(getQuesTitle());
+				paraQuestionVO.setQuesTitle(getQuesParaTitle());
 				paraQuestionVO.setQuestion(quesParagraph);
 				paraQuestionVO.setQuestionCategory(getQuestionCategory());
 				
@@ -105,7 +106,7 @@ public class AddQuestionBean {
 					if(imageUploadSuccessful){
 						QuestionVO imgQuestionVO = new QuestionVO();
 						imgQuestionVO.setTopic(getQuestionVO().getTopic());
-						imgQuestionVO.setQuesTitle(getQuesTitle());
+						imgQuestionVO.setQuesTitle(getQuesImgTitle());
 						imgQuestionVO.setQuestion(fileName);
 						imgQuestionVO.setQuestionCategory(getQuestionCategory());
 						
@@ -171,7 +172,7 @@ public class AddQuestionBean {
 		this.questionVO.setOption4("");
 		this.questionVO.setOption5("");
 		this.questionVO.setAnswer("");
-		this.quesTitle = "";
+		this.quesParaTitle = "";
 		this.quesParagraph = "";
 
 		return actionStr;
@@ -258,12 +259,12 @@ public class AddQuestionBean {
 		this.paraAnsStr = paraAnsStr;
 	}
 
-	public String getQuesTitle() {
-		return quesTitle;
+	public String getQuesParaTitle() {
+		return quesParaTitle;
 	}
 
-	public void setQuesTitle(String quesTitle) {
-		this.quesTitle = quesTitle;
+	public void setQuesParaTitle(String quesParaTitle) {
+		this.quesParaTitle = quesParaTitle;
 	}
 
 	public String getImgQuestionsStr() {
@@ -329,5 +330,14 @@ public class AddQuestionBean {
 	public void setUploadImage(UploadedFile uploadImage) {
 		this.uploadImage = uploadImage;
 	}
+
+	public String getQuesImgTitle() {
+		return quesImgTitle;
+	}
+
+	public void setQuesImgTitle(String quesImgTitle) {
+		this.quesImgTitle = quesImgTitle;
+	}
+	
 
 }
